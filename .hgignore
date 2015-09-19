@@ -1,0 +1,16 @@
+syntax: glob
+
+# Byte-compiled / optimized 
+__pycache__/
+*.pyc
+*.pyo
+
+# coverage files
+.coverage
+.coverage.*
+
+# google drive settings
+*desktop.ini
+
+# PyCharm settings
+.idea/
