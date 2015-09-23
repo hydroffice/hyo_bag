@@ -1,10 +1,10 @@
 
 Copyright Notice and License Terms for 
-hyo_bag - A library for BAG data format
+hyo_bag - BAG package for HydrOffice
 -----------------------------------------------------------------------------
 
 hyo_bag
-Copyright 2015- by Giuseppe Masetti (CCOM, UNH).
+Copyright 2015- by The Center for Coastal and Ocean Mapping (CCOM), UNH.
 
 All rights reserved.
 
@@ -25,16 +25,16 @@ provided that the following conditions are met:
 
 4. All publications or advertising materials mentioning features or use of 
    this software are asked, but not required, to acknowledge that it was 
-   developed by Giuseppe Masetti and credit the contributors.
+   developed by the CCOM and credit the contributors.
 
-5. Neither the name of Giuseppe Masetti, nor the name of any Contributor may 
+5. Neither the name of the CCOM, nor the name of any Contributor may 
    be used to endorse or promote products derived from this software 
-   without specific prior written permission from Giuseppe Masetti or the 
+   without specific prior written permission from the CCOM or the 
    Contributor, respectively.
 
 DISCLAIMER: 
 THIS SOFTWARE IS PROVIDED BY THE CCOM AND THE CONTRIBUTORS 
 "AS IS" WITH NO WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED.  In no 
-event shall Giuseppe Masetti or the Contributors be liable for any damages 
+event shall the CCOM or the Contributors be liable for any damages 
 suffered by the users arising out of the use of this software, even if 
 advised of the possibility of such damage. 

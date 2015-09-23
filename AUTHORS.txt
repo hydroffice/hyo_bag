@@ -4,7 +4,7 @@ Credits
 Authors
 ------------
 
-"HydrOffice template" is written and maintained by:
+"HydrOffice ssp" is written and maintained by:
 
 - `Giuseppe Masetti <mailto:gmasetti@ccom.unh.edu>`_
 
@@ -14,6 +14,8 @@ Contributors
 
 The following wonderful people contributed directly or indirectly to this project:
 
-- `John Doe <mailto:john@doe.edu>`_
+- `Brian Calder <mailto:brc@ccom.unh.edu>`_
+
+- `Matt Wilson <mailto:matt.wilson@noaa.gov>`_
 
 Please add yourself here alphabetically when you submit your first pull request.

@@ -1,5 +1,12 @@
 syntax: glob
 
+# temp files
+*.sh~
+*.*~
+
+# HDFCompass github
+hdf-compass/
+
 # Byte-compiled / optimized 
 __pycache__/
 *.pyc
