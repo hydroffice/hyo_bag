@@ -26,4 +26,4 @@ exe = EXE(pyz,
           debug=False,
           strip=None,
           upx=False,
-          console=False , icon='hydroffice/bag/gui/media/BAGExplorer.ico')
+          console=True, icon='hydroffice/bag/gui/media/BAGExplorer.ico')
