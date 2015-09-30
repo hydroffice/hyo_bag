@@ -1,29 +1,33 @@
 # -*- mode: python -*-
+
+block_cipher = None
+
+
 a = Analysis(['BAGExplorer.py'],
-             pathex=[],
+             pathex=['C:\\hyo_dev\\_bag'],
+             binaries=None,
+             datas=None,
              hiddenimports=[],
              hookspath=None,
-             runtime_hooks=None)
-
-# The following block is necessary to prevent a hard crash when launching
-# the resulting .exe file
-for d in a.datas:
-    if 'pyconfig' in d[0]:
-        a.datas.remove(d)
-        break
-# hydro-package data
-media_tree = Tree('hydroffice/bag/gui/media', prefix='hydroffice/bag/gui/media')
-manual_tree = Tree('hydroffice/bag/docs', prefix='hydroffice/bag/docs', excludes=['*.docx',])
-pyz = PYZ(a.pure)
+             runtime_hooks=None,
+             excludes=None,
+             win_no_prefer_redirects=None,
+             win_private_assemblies=None,
+             cipher=block_cipher)
+pyz = PYZ(a.pure, a.zipped_data,
+             cipher=block_cipher)
 exe = EXE(pyz,
           a.scripts,
-          a.binaries,
-          a.zipfiles,
-          a.datas,
-          media_tree,
-          manual_tree,
+          exclude_binaries=True,
           name='BAGExplorer.exe',
           debug=False,
           strip=None,
-          upx=False,
-          console=True, icon='hydroffice/bag/gui/media/BAGExplorer.ico')
+          upx=True,
+          console=True )
+coll = COLLECT(exe,
+               a.binaries,
+               a.zipfiles,
+               a.datas,
+               strip=None,
+               upx=True,
+               name='BAGExplorer')
