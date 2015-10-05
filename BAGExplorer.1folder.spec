@@ -1,12 +1,12 @@
-# Builds a single-file EXE for distribution.
+# Builds a single-folder EXE for distribution.
 # Note that an "unbundled" distribution launches much more quickly, but
 # requires an installer program to distribute.
 #
 # To compile, execute the following within the source directory:
 #
-# python /path/to/pyinstaller.py BAGExplorer.1file.spec
+# python /path/to/pyinstaller.py BAGExplorer.1folder.spec
 #
-# The resulting .exe file is placed in the dist/ folder.
+# The resulting .exe file is placed in the dist/BAGExplorer folder.
 
 from PyInstaller.building.build_main import Analysis, PYZ, EXE, COLLECT, BUNDLE, TOC
 from PyInstaller import is_darwin
@@ -57,20 +57,21 @@ a = Analysis(['BAGExplorer.py'],
 pyz = PYZ(a.pure)
 exe = EXE(pyz,
           a.scripts,
-          a.binaries,
-          a.zipfiles,
-          a.datas,
-          pkg_data_bag,
-          pkg_data_bag_explorer,
-          pkg_data_hdf_compass,
+          exclude_binaries=True,
           name='BAGExplorer',
           debug=False,
           strip=None,
-          upx=False,
+          upx=True,
           console=True,
           icon=icon_file)
-if is_darwin:
-    app = BUNDLE(exe,
-                 name='BAGExplorer',
-                 icon=icon_file,
-                 bundle_identifier=None)
+coll = COLLECT(exe,
+               a.binaries,
+               a.zipfiles,
+               a.datas,
+               pkg_data_bag,
+               pkg_data_bag_explorer,
+               pkg_data_hdf_compass,
+               strip=None,
+               upx=True,
+               name='BAGExplorer')
+

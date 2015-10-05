@@ -1,6 +1,8 @@
 hyo_bag
 ===========
 
+![logo](https://bitbucket.org/ccomjhc/hyo_bag/raw/tip/hydroffice/bag/gui/media/favicon.png)
+
 The bag hydro-package collects tools for working with BAG files. BAG is a data format by the [ONS-WG](http://www.opennavsurf.org/) (Open Navigation Surface Working Group).
 
 ### About HydrOffice
@@ -9,13 +11,13 @@ HydrOffice is a research development environment for ocean mapping. Its aim is t
 
 ### About this hydro-package
 
-This package provides functionalities to deal with BAG data files
+This package provides:
 
-The package uses HDF Compass (a viewer program for HDF5 and related formats) and the BAG-specific plugin to create a BAG Explorer application.  
+* the `bag` package which provides functionalities to deal with BAG data files
 
-HDF Compass is written in Python, but ships as a native application on
-Windows, OS X, and Linux, by using PyInstaller and Py2App to package the app.
+* the `bag_explorer` package that uses *HDF Compass* (a viewer program for HDF5 and related formats) and the BAG-specific plugin to build the resulting *BAG Explorer* application.  
 
+HDF Compass is written in Python, but ships as a native application on Windows, OS X, and Linux, by using PyInstaller and Py2App to package the app.
 For more info about HDF Compass, visit the [GitHub](http://github.com/HDFGroup/hdf-compass) repository and the [project](https://www.hdfgroup.org/projects/compass/) web page.
 
 
@@ -28,11 +30,10 @@ For the BAG library, you will need:
 * `NumPy`
 * `h5py`
 
-For executing and packaging the BAG Explorer app:
+For executing and packaging the *BAG Explorer* app:
 
-* `Matplotlib`
-* `wxPython Phoenix` (`>=2.9.5.0`)
-* `PyInstaller`: `pip install -i https://pypi.binstar.org/pypi/simple pyinstaller`
+* `hdf_compass` (that requires: `matplotlib`, `wxPython Phoenix` `h5py` and (optionally) `pydap`)
+* `PyInstaller`
 
 
 Packaging
@@ -40,14 +41,12 @@ Packaging
 
 ### Use of Pyinstaller
 
-* `pyinstaller --clean -y -i BAG.ico --hidden-import=pkg_resources -F BAG.py`
-* add `media_tree = Tree('hydroffice/bag/gui/media', prefix='hydroffice/bag/gui/media')`
-* add `manual_tree = Tree('hydroffice/bag/docs', prefix='hydroffice/bag/docs', excludes=['*.docx',])`
-* `pyinstaller --clean -y BAG.spec`
+* `pyinstaller --clean -y BAGExplorer.1file.spec`
+* `pyinstaller --clean -y BAGExplorer.1folder.spec`
 
 ### Creation of MAC OS dmg
 
-* `appdmg spec.json BAGExplorer`
+* `appdmg spec.json BAGExplorer.dmg`
 
 
 Useful Mercurial commands
@@ -81,7 +80,7 @@ Add a remote that points to the upstream repo (from the forked project folder):
 Fetching from the remote repository:
 
 * `git branch -va` (check all the available branches)
-* `git fetch `
+* `git fetch upstream`
 
 Merging with the upstream repository:
 
@@ -108,6 +107,6 @@ In case of need to retrieve the original code status:
 Other info
 ----------
 
-* Bitbucket: [https://bitbucket.org/gmasetti/hyo_bag](https://bitbucket.org/gmasetti/hyo_bag)
+* Bitbucket: [https://bitbucket.org/ccomjhc/hyo_bag](https://bitbucket.org/ccomjhc/hyo_bag)
 * Project page: [http://ccom.unh.edu/project/hydroffice](http://ccom.unh.edu/project/hydroffice)
-* License: [BSD](http://opensource.org/licenses/BSD-3-Clause)-like license (See COPYING)
+* License: BSD-like license (See [COPYING](https://bitbucket.org/ccomjhc/hyo_bag/raw/tip/COPYING.txt))
