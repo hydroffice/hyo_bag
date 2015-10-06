@@ -14,6 +14,7 @@ import os
 
 
 def collect_pkg_data(package, include_py_files=False, subdir=None):
+    """ helper function to collect data based on the passed package """
     from PyInstaller.utils.hooks import get_package_paths, remove_prefix, PY_IGNORE_EXTENSIONS
 
     # Accept only strings as packages.

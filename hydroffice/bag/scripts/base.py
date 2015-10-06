@@ -30,7 +30,9 @@ if os.path.exists(file_fake_0):
 
 bag_0 = File(file_bag_0)
 print(bag_0)
-print(bag_0.attrs['/'])
+print("filename: %s" % bag_0.filename)
+print("attributes for %s: %d" % (bag_0.attrs, len(bag_0.attrs)))
+print("driver: %s" % bag_0.driver)
 bag_0.flush()
 bag_0.close()
 print(bag_0)

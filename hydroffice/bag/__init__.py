@@ -8,6 +8,11 @@ import logging
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 
+from .helper import BAGError
+from .base import is_bag
+from .bag import BAGFile
+
+
 __version__ = '0.2.0'
 __doc__ = 'BAG'
 __author__ = 'gmasetti@ccom.unh.edu'

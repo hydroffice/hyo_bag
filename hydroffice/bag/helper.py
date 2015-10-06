@@ -27,3 +27,10 @@ class Helper(object):
         if not os.path.exists(samples_dir):
             raise BAGError("unable to find the samples folder: %s" % samples_dir)
         return samples_dir
+
+    @staticmethod
+    def elide(input_str, max_len=255):
+        """ only in case the passed string is longer than 'max_len', it applies elision """
+        if len(input_str) > max_len:
+            return input_str[:max_len] + "[..]"
+        return input_str

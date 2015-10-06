@@ -40,7 +40,7 @@ def is_bag(file_name):
 
 
 class File(h5py.File):
-    """ Represents a BAG file. """
+    """ Represents a BAG file (at low-level, thin wrapper around h5py). """
 
     def __init__(self, name, mode=None, driver=None,
                  libver=None, userblock_size=None, swmr=False, **kwds):
@@ -66,24 +66,23 @@ class File(h5py.File):
         Additional keywords
             Passed on to the selected file driver.
         """
-
-        if not is_bag(name):
-            raise BAGError("The passed file %s is not a BAG file")
-
         super(File, self).__init__(name=name, mode=mode, driver=driver,
                                    libver=libver, userblock_size=userblock_size, swmr=swmr, **kwds)
 
     def close(self):
         """ Close the file.  All open objects become invalid """
+        log.debug("closing")
         super(File, self).close()
 
     def flush(self):
         """ Tell the BAG library to flush its buffers. """
+        log.debug("flushing")
         super(File, self).flush()
 
     @with_phil
     def __repr__(self):
         if not self.id:
+            log.info("closed file")
             r = u('<Closed BAG file>')
         else:
             # Filename has to be forced to Unicode if it comes back bytes

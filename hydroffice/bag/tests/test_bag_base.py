@@ -24,3 +24,18 @@ class TestBagBase(object):
         with pytest.raises(BAGError):
             File(self.file_fake_0)
 
+    def test_bag_File_open(self):
+        from hydroffice.bag.base import is_bag, File
+        from hydroffice.bag.helper import BAGError
+        File(self.file_bag_0)
+        File(self.file_bag_1)
+
+    def test_bag_File_filename(self):
+        import os
+        from hydroffice.bag.base import is_bag, File
+        from hydroffice.bag.helper import BAGError
+        bag_0 = File(self.file_bag_0)
+        assert os.path.abspath(self.file_bag_0) == bag_0.filename
+        bag_1 = File(self.file_bag_1)
+        assert os.path.abspath(self.file_bag_1) == bag_1.filename
+
