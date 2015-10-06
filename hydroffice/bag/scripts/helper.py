@@ -1,5 +1,6 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import os
 import logging
 
 logger = logging.getLogger()
@@ -17,3 +18,7 @@ try:
     raise BAGError("test")
 except BAGError as e:
     print(e)
+
+data_folder = Helper.samples_folder()
+if os.path.exists(data_folder):
+    print("data folder: %s" % data_folder)

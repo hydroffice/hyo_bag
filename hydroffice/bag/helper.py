@@ -23,7 +23,7 @@ class BAGError(Exception):
 class Helper(object):
     @classmethod
     def samples_folder(cls):
-        samples_dir = os.path.abspath(os.path.join(os.path.dirname(__file__)), "samples")
+        samples_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "samples"))
         if not os.path.exists(samples_dir):
             raise BAGError("unable to find the samples folder: %s" % samples_dir)
         return samples_dir

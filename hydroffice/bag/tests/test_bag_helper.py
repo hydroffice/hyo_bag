@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import pytest
 
 
-class TestHyOError(object):
+class TestBAGError(object):
 
     from hydroffice.bag.helper import BAGError
     err = BAGError("test")
@@ -20,3 +20,13 @@ class TestHyOError(object):
 
     def test_has_message(self):
         assert hasattr(self.err, 'message')
+
+
+class TestBagHelper(object):
+
+    def test_bag_samples_folder(self):
+        import os
+        from hydroffice.bag.helper import Helper
+
+        assert os.path.exists(Helper.samples_folder())
+

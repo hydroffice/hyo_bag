@@ -1,12 +1,24 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import, division, print_function  # , unicode_literals
 
+import os
+import sys
 import logging
 
 log = logging.getLogger(__name__)
 
 import h5py
+from h5py._hl.base import with_phil
 
 from .helper import BAGError
+
+
+PY3 = sys.version_info[0] == 3
+if PY3:
+    def u(s):
+        return s
+else:
+    def u(s):
+        return unicode(s.replace(r'\\', r'\\\\'), "unicode_escape")
 
 
 def is_bag(file_name):
@@ -27,10 +39,13 @@ def is_bag(file_name):
     return True
 
 
-class File(object):
+class File(h5py.File):
+    """ Represents a BAG file. """
+
     def __init__(self, name, mode=None, driver=None,
                  libver=None, userblock_size=None, swmr=False, **kwds):
-        """ Create a new file object.
+        """
+        Create a new file object.
 
         See the h5py user guide for a detailed explanation of the options.
 
@@ -55,5 +70,29 @@ class File(object):
         if not is_bag(name):
             raise BAGError("The passed file %s is not a BAG file")
 
-        self.fid = h5py.File(name=name, mode=mode, driver=driver,
-                             libver=libver, userblock_size=userblock_size, swmr=swmr, **kwds)
+        super(File, self).__init__(name=name, mode=mode, driver=driver,
+                                   libver=libver, userblock_size=userblock_size, swmr=swmr, **kwds)
+
+    def close(self):
+        """ Close the file.  All open objects become invalid """
+        super(File, self).close()
+
+    def flush(self):
+        """ Tell the BAG library to flush its buffers. """
+        super(File, self).flush()
+
+    @with_phil
+    def __repr__(self):
+        if not self.id:
+            r = u('<Closed BAG file>')
+        else:
+            # Filename has to be forced to Unicode if it comes back bytes
+            # Mode is always a "native" string
+            filename = self.filename
+            if isinstance(filename, bytes):  # Can't decode fname
+                filename = filename.decode('utf8', 'replace')
+            r = u('<BAG file "%s" (mode %s)>') % (os.path.basename(filename), self.mode)
+
+        if PY3:
+            return r
+        return r.encode('utf8')
