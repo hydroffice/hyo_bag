@@ -91,6 +91,10 @@ class File(h5py.File):
             if isinstance(filename, bytes):  # Can't decode fname
                 filename = filename.decode('utf8', 'replace')
             r = u('<BAG file "%s" (mode %s)>') % (os.path.basename(filename), self.mode)
+            r += "\n .id: %s" % self.id
+            r += "\n .name: %s" % self.name
+            r += "\n .driver: %s" % self.driver
+            r += "\n .user block size: %s" % self.userblock_size
 
         if PY3:
             return r

@@ -134,11 +134,11 @@
     </pattern>
     <!-- gmi:MI_Metadata/gmd:spatialRepresentationInfo-level checks -->
     <pattern id="gmd_spatialRepresentationInfo_checks">
-        <rule context="/gmi:MI_Metadata/gmd:spatialRepresentationInfo | gmd:MD_Metadata/gmd:spatialRepresentationInfo">
-            <assert test="child::gmd:MD_Georectified/gmd:numberOfDimensions >= 2">
+        <rule context="/gmi:MI_Metadata/gmd:spatialRepresentationInfo/gmd:MD_Georectified | gmd:MD_Metadata/gmd:spatialRepresentationInfo/gmd:MD_Georectified">
+            <assert test="child::gmd:numberOfDimensions >= 2">
                 The gmd:MD_Georectified/gmd:numberOfDimensions must specify at least two dimensions [$5.3.1.5].
             </assert>
-            <assert test="child::gmd:MD_Georectified/gmd:numberOfDimensions = count(child::gmd:MD_Georectified/gmd:axisDimensionProperties)">
+            <assert test="child::gmd:numberOfDimensions = count(child::gmd:axisDimensionProperties)">
                 The number of gmd:axisDimensionProperties must correspond to gmd:MD_Georectified/gmd:numberOfDimensions [$5.3.1.5], but <value-of select="normalize-space(child::gmd:MD_Georectified/gmd:numberOfDimensions)"/>!=<value-of select="normalize-space(count(child::gmd:MD_Georectified/gmd:axisDimensionProperties))"/>.
             </assert>
         </rule>

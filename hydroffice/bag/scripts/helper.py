@@ -22,3 +22,12 @@ except BAGError as e:
 data_folder = Helper.samples_folder()
 if os.path.exists(data_folder):
     print("data folder: %s" % data_folder)
+
+iso_folder = Helper.iso19139_folder()
+if os.path.exists(iso_folder):
+    print("iso folder: %s" % iso_folder)
+
+iso_folder = Helper.iso19757_3_folder()
+if os.path.exists(iso_folder):
+    print("iso folder: %s" % iso_folder)
+

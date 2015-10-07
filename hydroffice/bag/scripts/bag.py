@@ -31,6 +31,8 @@ print(type(bag_0.uncertainty(mask_nan=True)), bag_0.uncertainty(mask_nan=True).s
 # plt.contourf(bag_0.uncertainty(mask_nan=True))
 # plt.show()
 
+print(type(bag_0.tracking_list()), bag_0.tracking_list().shape, bag_0.tracking_list().dtype)
+
 print(type(bag_0.metadata()), len(bag_0.metadata()))
 file_bag_0_xml = os.path.join("bdb_00.bag.xml")
 bag_0.extract_metadata(name=file_bag_0_xml)
@@ -53,8 +55,8 @@ print("- file_bag_2: %s" % file_bag_2)
 bag_2 = BAGFile.create_template(file_bag_2)
 bag_2.close()
 
-# if os.path.exists(file_bag_2):
-#     os.remove(file_bag_2)
+if os.path.exists(file_bag_2):
+    os.remove(file_bag_2)
 
 
 

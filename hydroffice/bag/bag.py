@@ -6,11 +6,12 @@ import logging
 import numpy as np
 import h5py
 from lxml import etree
+from lxml import isoschematron
 
 log = logging.getLogger(__name__)
 
 from .base import is_bag, File
-from .helper import BAGError
+from .helper import BAGError, Helper
 from .meta import Meta
 
 
@@ -34,6 +35,7 @@ class BAGFile(File):
     _bag_uncertainty_max_uv = "Maximum Uncertainty Value"
     _bag_nan = 1000000
 
+
     def __init__(self, name, mode=None, driver=None,
                  libver=None, userblock_size=None, swmr=False, **kwds):
         """
@@ -50,6 +52,8 @@ class BAGFile(File):
                                       libver=libver, userblock_size=userblock_size, swmr=swmr, **kwds)
 
         self.meta = None
+        self.meta_errors = list()
+        self._str = None
 
     @classmethod
     def create_template(cls, name):
@@ -154,6 +158,75 @@ class BAGFile(File):
         with open(os.path.abspath(name), 'w') as fid:
             fid.write(meta_xml)
 
+    def validate_metadata(self):
+        """
+        Validate metadata based on XML Schemas and schematron.
+        """
+        # clean metadata error list
+        self.meta_errors = list()
+        # assuming a valid BAG
+        is_valid = True
+
+        try:
+            xml_tree = etree.fromstring(self.metadata(as_pretty_xml=True))
+        except etree.Error as e:
+            log.warning("unabled to parse XML metadata: %s" % e)
+            self.meta_errors.append(e.message)
+            return False
+
+        try:
+            schema_path = os.path.join(Helper.iso19139_folder(), 'bag', 'bag.xsd')
+            schema_doc = etree.parse(schema_path)
+            schema = etree.XMLSchema(schema_doc)
+        except etree.Error as e:
+            log.warning("unabled to parse XML schema: %s" % e)
+            self.meta_errors.append(e.message)
+            return False
+
+        try:
+            schema.assertValid(xml_tree)
+        except etree.DocumentInvalid as e:
+            log.warning("invalid metadata based on XML schema: %s" % e)
+            self.meta_errors.append(e.message)
+            for i in schema.error_log:
+                self.meta_errors.append(i)
+            is_valid = False
+
+        if is_valid:
+            log.debug("xsd validated")
+
+        try:
+            schematron_path = os.path.join(Helper.iso19757_3_folder(), 'bag_metadata_profile.sch')
+            schematron_doc = etree.parse(schematron_path)
+        except etree.DocumentInvalid as e:
+            log.warning("unabled to parse BAG schematron: %s" % e)
+            self.meta_errors.append(e.message)
+            return False
+
+        try:
+            schematron = isoschematron.Schematron(schematron_doc, store_report=True)
+        except etree.DocumentInvalid as e:
+            log.warning("unabled to load BAG schematron: %s" % e)
+            self.meta_errors.append(e.message)
+            return False
+
+        if schematron.validate(xml_tree):
+            log.debug("schematron validated")
+        else:
+            log.warning("invalid metadata based on Schematron")
+            is_valid = False
+            ns = {
+                'svrl': 'http://purl.oclc.org/dsdl/svrl',
+            }
+            for i in schematron.error_log:
+                err_tree = etree.fromstring(i.message)
+                #print(etree.tostring(err_tree, pretty_print=True))
+                err_msg = err_tree.xpath('/svrl:failed-assert/svrl:text', namespaces=ns)[0].text.strip()
+                log.warning(err_msg)
+                self.meta_errors.append(err_msg)
+
+        return is_valid
+
     def populate_metadata(self):
         """ Populate metadata class """
 
@@ -163,15 +236,29 @@ class BAGFile(File):
 
         self.meta = Meta(meta_xml=self.metadata(as_pretty_xml=True))
 
+    def _str_group_info(self, grp):
+        if grp == self._bag_root:
+            self._str += "\n <root>"
+        elif grp == self._bag_elevation:
+            self._str += "\n  <elevation shape=%s>" % str(self.elevation().shape)
+        elif grp == self._bag_uncertainty:
+            self._str += "\n  <uncertainty shape=%s>" % str(self.uncertainty().shape)
+        elif grp == self._bag_tracking_list:
+            self._str += "\n  <tracking list shape=%s>" % str(self.tracking_list().shape)
+        elif grp == self._bag_metadata:
+            if self.meta is not None:
+                self._str += "\n  %s" % str(self.meta)
+            else:
+                self._str += "\n  <%s>" % grp
+        else:
+            self._str += "\n  <%s>" % grp
+
+        if grp != self._bag_metadata:
+            for atr in self[grp].attrs:
+                atr_val = self[grp].attrs[atr]
+                self._str += "\n   - %s: %s (%s, %s)" % (atr, atr_val, atr_val.shape, atr_val.dtype)
+
     def __str__(self):
-        output = super(BAGFile, self).__str__()
-
-        output += "<BAG root>"
-        output += "\n  <elevation shape=%s>" % str(self.elevation().shape)
-        output += "\n  <uncertainty shape=%s>" % str(self.uncertainty().shape)
-        output += "\n  <tracking list shape=%s>" % str(self.tracking_list().shape)
-
-        if self.meta is not None:
-            output += "\n  %s" % str(self.meta)
-
-        return output
+        self._str = super(BAGFile, self).__str__()
+        self.visit(self._str_group_info)
+        return self._str

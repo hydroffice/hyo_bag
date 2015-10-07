@@ -94,6 +94,7 @@ class InitFrame(frame.BaseFrame):
         info.SetDescription("An HDFCompass plugin for Open Navigation Surface (ONS-WG)\nBAG data files. "
                             "The plugin uses the BAG library v.%s" % bag.__version__)
         info.SetIcon(wx.Icon(os.path.join(self.be_folder, 'media', 'BAGExplorer_128.png')))
+        info.SetWebSite("https://bitbucket.org/gmasetti/hyo_bag")
         wx.AboutBox(info)
 
     def on_file_open(self, evt):

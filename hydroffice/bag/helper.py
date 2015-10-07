@@ -28,6 +28,20 @@ class Helper(object):
             raise BAGError("unable to find the samples folder: %s" % samples_dir)
         return samples_dir
 
+    @classmethod
+    def iso19139_folder(cls):
+        iso_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "iso19139"))
+        if not os.path.exists(iso_dir):
+            raise BAGError("unable to find the iso19139 folder: %s" % iso_dir)
+        return iso_dir
+
+    @classmethod
+    def iso19757_3_folder(cls):
+        iso_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "iso19757-3"))
+        if not os.path.exists(iso_dir):
+            raise BAGError("unable to find the iso19757-3 folder: %s" % iso_dir)
+        return iso_dir
+
     @staticmethod
     def elide(input_str, max_len=255):
         """ only in case the passed string is longer than 'max_len', it applies elision """
