@@ -29,6 +29,9 @@ __pycache__/
 # Windows executable
 *.exe
 
+# Mac OS X installers
+*.dmg
+
 # C extensions
 *.so
 *.pyd

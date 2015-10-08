@@ -1,7 +1,7 @@
 {
   "title": "BAGExplorer",
    "background": "dmg.png",
-   "icon": "BAGExplorer.icns",
+   "icon": "hydroffice/bag_explorer/media/BAGExplorer.icns",
    "icon-size": 80,
    "contents": [
     { "x": 128, "y": 110, "type": "file", "path": "dist/BAGExplorer.app" },
