@@ -1,6 +1,13 @@
 History
 =======
 
+0.2
+-----
+
+- Added BAG Explorer
+- Started Schematron schema for BAG Metadata profile
+
+
 0.1
 -----
 

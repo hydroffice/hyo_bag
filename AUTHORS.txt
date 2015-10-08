@@ -4,17 +4,16 @@ Credits
 Authors
 ------------
 
-"HydrOffice ssp" is written and maintained by:
+"HydrOffice BAG" is written and maintained by:
 
 - `Giuseppe Masetti <mailto:gmasetti@ccom.unh.edu>`_
 
+- `Brian Calder <mailto:brc@ccom.unh.edu>`_
 
 Contributors
 ------------
 
 The following wonderful people contributed directly or indirectly to this project:
-
-- `Brian Calder <mailto:brc@ccom.unh.edu>`_
 
 - `Matt Wilson <mailto:matt.wilson@noaa.gov>`_
 
