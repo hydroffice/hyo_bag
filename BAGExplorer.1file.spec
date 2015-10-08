@@ -40,6 +40,7 @@ def collect_pkg_data(package, include_py_files=False, subdir=None):
 pkg_data_bag = collect_pkg_data('hydroffice.bag')
 pkg_data_bag_explorer = collect_pkg_data('hydroffice.bag_explorer')
 pkg_data_hdf_compass = collect_pkg_data('hdf_compass')
+pkg_data_lxml = collect_pkg_data('lxml')
 
 icon_folder = os.path.abspath(os.path.join('hydroffice', 'bag_explorer', 'media'))
 if not os.path.exists(icon_folder):
@@ -64,6 +65,7 @@ exe = EXE(pyz,
           pkg_data_bag,
           pkg_data_bag_explorer,
           pkg_data_hdf_compass,
+          pkg_data_lxml,
           name='BAGExplorer',
           debug=False,
           strip=None,

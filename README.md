@@ -1,7 +1,7 @@
 hyo_bag
 ===========
 
-![logo](https://bitbucket.org/ccomjhc/hyo_bag/raw/tip/hydroffice/bag/gui/media/favicon.png)
+![logo](https://bitbucket.org/gmasetti/hyo_bag/raw/tip/hydroffice/bag/gui/media/favicon.png)
 
 The bag hydro-package collects tools for working with BAG files. BAG is a data format by the [ONS-WG](http://www.opennavsurf.org/) (Open Navigation Surface Working Group).
 
@@ -107,6 +107,6 @@ In case of need to retrieve the original code status:
 Other info
 ----------
 
-* Bitbucket: [https://bitbucket.org/ccomjhc/hyo_bag](https://bitbucket.org/ccomjhc/hyo_bag)
+* Bitbucket: [https://bitbucket.org/gmasetti/hyo_bag](https://bitbucket.org/gmasetti/hyo_bag)
 * Project page: [http://ccom.unh.edu/project/hydroffice](http://ccom.unh.edu/project/hydroffice)
-* License: BSD-like license (See [COPYING](https://bitbucket.org/ccomjhc/hyo_bag/raw/tip/COPYING.txt))
+* License: BSD-like license (See [COPYING](https://bitbucket.org/gmasetti/hyo_bag/raw/tip/COPYING.txt))
