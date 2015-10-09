@@ -1,5 +1,10 @@
 """
 HydrOffice Namespace Packages
-Nothing else to put here since it will not be installed!
 """
-__import__('pkg_resources').declare_namespace(__name__)
+try:
+    import pkg_resources
+    pkg_resources.declare_namespace(__name__)
+except ImportError:
+    import pkgutil
+    __path__ = pkgutil.extend_path(__path__, __name__)
+
