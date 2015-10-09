@@ -1,17 +1,17 @@
 Credits
-=======
+-------
 
 Authors
-------------
+```````
 
-"HydrOffice BAG" is written and maintained by:
+HydrOffice BAG and BAG Explorer are written and maintained by:
 
 - `Giuseppe Masetti <mailto:gmasetti@ccom.unh.edu>`_
 
 - `Brian Calder <mailto:brc@ccom.unh.edu>`_
 
 Contributors
-------------
+````````````
 
 The following wonderful people contributed directly or indirectly to this project:
 

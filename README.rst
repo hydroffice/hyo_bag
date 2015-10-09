@@ -34,14 +34,14 @@ Development Environment
 
 For the BAG library, you will need:
 
-* `Python >=2.7` (`>=3.4` support is in progress)
+* *Python >=2.7* (*>=3.4* support is in progress)
 * :code:`numpy`
 * :code:`h5py`
 
 For executing and packaging the *BAG Explorer* app:
 
 * :code:`hdf_compass` (that requires: :code:`matplotlib`, `wxPython Phoenix` :code:`h5py`, (optionally) :code:`pydap` and :code:`hydroffice.bag`)
-* `PyInstaller`
+* *PyInstaller*
 
 
 Packaging
@@ -116,6 +116,17 @@ Reset the fork
 In case of need to retrieve the original code status:
 
 * :code:`git checkout backup`
+
+
+PyPi
+----
+
+Some instructions can be found `here <https://wiki.python.org/moin/TestPyPI>`_:
+
+* :code:`python setup.py register -r test`
+* :code:`python setup.py register -r pypi`
+* :code:`python setup.py build bdist_wheel upload -r test`
+* :code:`python setup.py build bdist_wheel upload -r pypi`
 
 
 Other info

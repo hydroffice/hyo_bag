@@ -1,9 +1,9 @@
 
 Copyright Notice and License Terms for 
-hyo_bag - BAG package for HydrOffice
+hydroffice.bag - BAG package for HydrOffice
 -----------------------------------------------------------------------------
 
-hyo_bag
+hydroffice.bag
 Copyright 2015- by G.Masetti and B.R.Calder (CCOM, UNH).
 
 All rights reserved.

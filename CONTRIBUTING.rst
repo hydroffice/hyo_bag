@@ -1,5 +1,5 @@
 How To Contribute
-=================
+-----------------
 
 Every open source project lives from the generous help by contributors that sacrifice their time and this is no different.
 
@@ -14,7 +14,7 @@ Here are a few hints and rules to get you started:
 - *Always* add tests and docs for your code. This is a hard rule; patches with missing tests or documentation won’t be merged.
   If a feature is not tested or documented, it does not exist.
 - Obey `PEP 8`_ and `PEP 257`_.
-- Write 'good commit messages'_.
+- Write `good commit messages`_.
 - Ideally, `collapse`_ your commits, i.e. make your pull requests just one commit.
 
 .. note::
@@ -22,12 +22,12 @@ Here are a few hints and rules to get you started:
    In the best case, we can mold it into something, in the worst case the pull request gets politely closed.
    There’s absolutely nothing to fear.
 
-Thank you for considering to contribute! If you have any question or concerns, feel free to reach out to me.
+Thank you for considering to contribute! If you have any question or concerns, feel free to reach out to us.
 
 .. _`Code of Conduct`: http://www.python.org/psf/codeofconduct/
-.. _AUTHORS.txt: src/default/AUTHORS.txt
-.. _changelog: src/default/HISTORY.txt
+.. _AUTHORS.txt: https://bitbucket.org/ccomjhc/hyo_bag/raw/tip/AUTHORS.rst
+.. _changelog: https://bitbucket.org/ccomjhc/hyo_bag/raw/tip/HISTORY.rst
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
 .. _`PEP 257`: http://www.python.org/dev/peps/pep-0257/
-.. _collapse: http://mercurial.selenic.com/wiki/CollapseExtension
+.. _collapse: https://www.mercurial-scm.org/wiki/RebaseExtension
 .. _`good commit messages`: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
