@@ -1,6 +1,13 @@
 HydrOffice BAG and BAG Explorer
 ===============================
 
+.. image:: https://badge.fury.io/py/hydroffice.bag.png
+    :target: http://badge.fury.io/py/hydroffice.bag
+    :alt: Latest version
+
+General info
+------------
+
 .. image:: https://bitbucket.org/ccomjhc/hyo_bag/raw/tip/hydroffice/bag/gui/media/favicon.png
     :alt: logo
 
@@ -12,12 +19,12 @@ The BAG hydro-package collects tools for working with BAG files. BAG is a data f
 BAG Explorer is a light application, based on HDF Compass with a BAG plugin, to explore BAG data files.
 
 About HydrOffice
-````````````````
+~~~~~~~~~~~~~~~~
 
 HydrOffice is a research development environment for ocean mapping. Its aim is to provide a collection of hydro-packages to deal with specific issues in such a field, speeding up both algorithms testing and research-2-operation.
 
 About this hydro-package
-````````````````````````
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 This package provides:
 
@@ -48,13 +55,13 @@ Packaging
 ---------
 
 Use of Pyinstaller
-``````````````````
+~~~~~~~~~~~~~~~~~~
 
 * :code:`pyinstaller --clean -y BAGExplorer.1file.spec`
 * :code:`pyinstaller --clean -y BAGExplorer.1folder.spec`
 
 Creation of MAC OS dmg
-``````````````````````
+~~~~~~~~~~~~~~~~~~~~~~
 
 * :code:`appdmg spec.json BAGExplorer.dmg`
 
@@ -63,7 +70,7 @@ Useful Mercurial commands
 -------------------------
 
 Merge a branch to default
-`````````````````````````
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * :code:`hg update default`
 * :code:`hg merge 2.0.0`
@@ -72,7 +79,7 @@ Merge a branch to default
 * :code:`hg commit -m"Close 2.0.0 branch" -ugiumas --close-branch`
 
 Open a new branch
-`````````````````
+~~~~~~~~~~~~~~~~~
 
 * :code:`hg update default`
 * :code:`hg branch 2.0.1`
@@ -83,7 +90,7 @@ Useful git commands
 -------------------
 
 Syncing a fork
-``````````````
+~~~~~~~~~~~~~~
 
 Add a remote that points to the upstream repo (from the forked project folder):
 
@@ -105,7 +112,7 @@ Finally:
 * :code:`git push origin master`
 
 Reset the fork
-``````````````
+~~~~~~~~~~~~~~
 
 * :code:`git remote add upstream https://github.com/HDFGroup/hdf-compass`
 * :code:`git fetch upstream`
