@@ -10,7 +10,7 @@ from hdf_compass import compass_viewer
 from hdf_compass import common
 from hdf_compass.compass_viewer import frame
 from hdf_compass.compass_viewer.viewer import load_plugins
-from hydroffice.bag_explorer import bag_images
+#from hydroffice.bag_explorer import bag_images
 from hydroffice import bag
 
 import logging
@@ -25,19 +25,6 @@ class BagExplorerApp(compass_viewer.CompassApp):
         """ Constructor.  If *redirect*, show a windows with console output."""
         super(BagExplorerApp, self).__init__(redirect=redirect)
         self.SetAppName("BAGExplorer")
-
-
-def getbitmap(name):
-    """ Return a wx.Bitmap of the given icon """
-    png = getattr(bag_images, name)()
-    return png_to_bitmap(png)
-
-
-def png_to_bitmap(png):
-    """ Convert a string with raw PNG data to a wx.Bitmap """
-    stream = cStringIO.StringIO(png)
-    img = wx.ImageFromStream(stream, wx.BITMAP_TYPE_PNG)
-    return img.ConvertToBitmap()
 
 
 class InitFrame(frame.BaseFrame):
@@ -63,7 +50,7 @@ class InitFrame(frame.BaseFrame):
 
         self.Bind(wx.EVT_MENU, self.on_about_bag, id=ID_ABOUT_BAG)
 
-        data = getbitmap('logo')
+        data = wx.Bitmap(os.path.join(self.be_folder, 'media', "logo.png"), wx.BITMAP_TYPE_ANY)
         bmp = wx.StaticBitmap(self, wx.ID_ANY, data)
         self.SetIcon(wx.Icon(os.path.join(self.be_folder, 'media', 'BAGExplorer_32.png')))
 

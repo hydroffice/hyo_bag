@@ -76,4 +76,8 @@ coll = COLLECT(exe,
                strip=None,
                upx=True,
                name='BAGExplorer')
-
+if is_darwin:
+    app = BUNDLE(coll,
+                 name='BAGExplorer.app',
+                 icon=icon_file,
+                 bundle_identifier=None)
