@@ -33,6 +33,9 @@ install:
   # Install dependencies
   - "conda install -q numpy matplotlib h5py lxml pytest"
 
+  # Add to path
+  - "SET PYTHONPATH=%PYTHONPATH%;%CD%"
+
 build: off
 
 test_script:
