@@ -17,11 +17,6 @@ install:
   - "choco install -y miniconda"
   - "SET PATH=%MINICONDA%;%MINICONDA%\\Scripts;%PATH%"
 
-install:
-  # Install miniconda using a powershell script.
-  - "choco install -y miniconda"
-  - "SET PATH=%MINICONDA%;%MINICONDA%\\Scripts;%PATH%"
-
   # Install the build and runtime dependencies of the project.
   - "conda config --set always_yes yes --set changeps1 no"
   - "conda update -q conda"
