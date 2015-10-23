@@ -2,5 +2,7 @@
 -r requirements.txt
 
 pyinstaller
+numpy
+matplotlib
 h5py
 lxml
