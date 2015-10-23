@@ -5,6 +5,10 @@ HydrOffice BAG and BAG Explorer
     :target: http://badge.fury.io/py/hydroffice.bag
     :alt: Latest version
 
+.. image:: https://readthedocs.org/projects/hydroffice-bag/badge/?version=latest
+    :target: http://hydroffice-bag.readthedocs.org/en/latest/?badge=latest
+    :alt: Documentation Status
+
 General info
 ------------
 
@@ -124,6 +128,22 @@ In case of need to retrieve the original code status:
 
 * :code:`git checkout backup`
 
+Documentation
+-------------
+
+The documentation is built using `Sphinx`:
+
+* :code:`pip install sphinx sphinx-autobuild`
+
+For the first time, the documentation template is created in the 'docs' folder:
+
+* :code:`mkdir docs`
+* :code:`cd docs`
+* :code:`sphinx-quickstart`
+
+To update the API documentation:
+
+* :code:`sphinx-apidoc -f -o docs/api hydroffice hydroffice/bag/scripts`
 
 PyPi
 ----

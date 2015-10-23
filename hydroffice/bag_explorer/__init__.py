@@ -9,7 +9,7 @@ import logging
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 
-__version__ = '0.2.1'
+__version__ = '0.2.2'
 __doc__ = 'BAG Explorer'
 __author__ = 'gmasetti@ccom.unh.edu, brc@ccom.unh.edu'
 __license__ = 'BSD-like license'
