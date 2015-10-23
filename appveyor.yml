@@ -4,7 +4,7 @@ environment:
     # SDK v7.0 MSVC Express 2008's SetEnv.cmd script will fail if the
     # /E:ON and /V:ON options are not enabled in the batch script intepreter
     # See: http://stackoverflow.com/a/13751649/163740
-    CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\tests\\scripts\\appveyor\\run_with_env.cmd"
+    CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\tests\\appveyor\\run_with_env.cmd"
 
   matrix:
 
@@ -64,7 +64,7 @@ install:
   - "%CMD_IN_ENV% pip install git+https://github.com/matysek/pip-accel.git"
 
   # Install the PyInstaller test dependencies.
-  #- "%CMD_IN_ENV% pip-accel install --disable-pip-version-check --timeout 5 --retries 2 -r tests/requirements-win.txt"
+  - "%CMD_IN_ENV% pip-accel install --disable-pip-version-check --timeout 5 --retries 2 -r tests/requirements-win.txt"
 
   # Install PyInstaller into virtualenv.
   - "%CMD_IN_ENV% pip install -e ."
