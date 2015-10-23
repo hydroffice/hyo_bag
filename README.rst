@@ -3,11 +3,15 @@ HydrOffice BAG and BAG Explorer
 
 .. image:: https://badge.fury.io/py/hydroffice.bag.png
     :target: http://badge.fury.io/py/hydroffice.bag
-    :alt: Latest version
+    :alt: PyPi version
 
 .. image:: https://readthedocs.org/projects/hydroffice-bag/badge/?version=latest
     :target: http://hydroffice-bag.readthedocs.org/en/latest/?badge=latest
     :alt: Documentation Status
+
+.. image:: https://ci.appveyor.com/api/projects/status/sm42iv111rvpqydl?svg=true
+    :target: https://ci.appveyor.com/project/gmasetti/hyo-bag
+    :alt: AppVeyor Status
 
 General info
 ------------
