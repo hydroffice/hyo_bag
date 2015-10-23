@@ -1,17 +1,23 @@
 .. HydrOffice BAG documentation master file, created by
    sphinx-quickstart on Sun Oct 18 16:44:37 2015.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
 
-Welcome to HydrOffice BAG's documentation!
-==========================================
+HydrOffice BAG's documentation
+==============================
 
-Contents:
+In brief
+--------
+
+The BAG hydro-package collects tools for working with BAG files. BAG is a data format by the `ONS-WG <http://www.opennavsurf.org/>`_ (Open Navigation Surface Working Group).
+
+BAG Explorer is a light application, based on HDF Compass with a BAG plugin, to explore BAG data files.
+
+Contents
+--------
 
 .. toctree::
    :maxdepth: 2
 
-
+   api/modules
 
 Indices and tables
 ==================

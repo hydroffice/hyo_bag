@@ -141,6 +141,10 @@ For the first time, the documentation template is created in the 'docs' folder:
 * :code:`cd docs`
 * :code:`sphinx-quickstart`
 
+To update the API documentation:
+
+* :code:`sphinx-apidoc -f -o docs/api hydroffice hydroffice/bag/scripts`
+
 PyPi
 ----
 

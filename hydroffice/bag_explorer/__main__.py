@@ -10,5 +10,5 @@ ch_formatter = logging.Formatter('%(levelname)-9s %(name)s.%(funcName)s:%(lineno
 ch.setFormatter(ch_formatter)
 logger.addHandler(ch)
 
-from . import bag_explorer
-bag_explorer.run()
+from . import explorer
+explorer.run()
