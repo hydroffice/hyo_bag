@@ -12,7 +12,7 @@ HydrOffice BAG and BAG Explorer
 General info
 ------------
 
-.. image:: https://bitbucket.org/ccomjhc/hyo_bag/raw/tip/hydroffice/bag/gui/media/favicon.png
+.. image:: https://bitbucket.org/ccomjhc/hyo_bag/raw/tip/hydroffice/bag/media/favicon.png
     :alt: logo
 
 The BAG hydro-package collects tools for working with BAG files. BAG is a data format by the `ONS-WG <http://www.opennavsurf.org/>`_ (Open Navigation Surface Working Group).
