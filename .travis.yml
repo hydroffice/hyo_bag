@@ -49,6 +49,7 @@ install:
   - python setup.py install
 
   # freezing stuff
+  - "conda install -q pydap wxpython"
   - pip install hdf_compass
   - pip install pyinstaller
 
