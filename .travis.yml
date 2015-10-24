@@ -5,14 +5,16 @@ sudo: false
 # Travis-CI does not currently support Python and Mac OS X
 language: c
 
-os:
-  - linux
-  - osx
-
 matrix:
   include:
-  - env: PYTHON_VERSION=2.7
-  - env: PYTHON_VERSION=3.4
+  - os: linux
+    env: PYTHON_VERSION=2.7
+  - os: linux
+    env: PYTHON_VERSION=3.4
+  - os: osx
+    env: PYTHON_VERSION=2.7
+  - os: osx
+    env: PYTHON_VERSION=3.4
 
 
 install:
@@ -41,7 +43,7 @@ install:
   - conda info -a
 
   # create and activate a test-environment
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION
+  - conda create -q -n test-environment python=$PYTHON_VERSION
   - source activate test-environment
 
   # Install dependencies
