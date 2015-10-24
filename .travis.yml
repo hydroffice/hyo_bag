@@ -66,5 +66,12 @@ after_script:
   - "pyinstaller HDFCompass.1file.spec"
 
 addons:
-  artifacts: true
+  artifacts:
+    debug: true
+    paths:
+    - "./dist"
   s3_region: "us-west-1" # defaults to "us-east-1"
+
+matrix:
+  allow_failures:
+  - python: "3.4"
