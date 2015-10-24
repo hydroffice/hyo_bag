@@ -13,6 +13,12 @@ HydrOffice BAG and BAG Explorer
     :target: https://ci.appveyor.com/project/gmasetti/hyo-bag
     :alt: AppVeyor Status
 
+.. image:: https://travis-ci.org/giumas/hyo_bag.svg?branch=master
+    :target: https://travis-ci.org/giumas/hyo_bag
+    :alt: Travis-CI Status
+
+
+
 General info
 ------------
 
