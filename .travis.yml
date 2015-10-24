@@ -11,7 +11,8 @@ python:
 
 os:
   - linux
-  - osx
+  # Travis-CI does not currently support Python and Mac OS X
+  # - osx
 
 install:
 
@@ -47,5 +48,13 @@ install:
 
   - python setup.py install
 
+  # freezing stuff
+  - pip install hdf_compass
+  - pip install pyinstaller
+
 script:
   - "py.test"
+
+addons:
+  artifacts: true
+  s3_region: "us-west-1" # defaults to "us-east-1"
