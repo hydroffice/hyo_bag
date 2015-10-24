@@ -74,7 +74,6 @@ after_script:
       python setup.py bdist_wheel;
       conda install -c ilastik py2app;
       npm install -g appdmg;
-    else
     fi
 
 addons:
