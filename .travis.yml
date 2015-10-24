@@ -18,13 +18,13 @@ matrix:
   - env: PYTHON_VERSION=3.4
   - os: osx
 
-install:
-
+before_install:
+  # Set the anaconda environment
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       if [[ "$PYTHON_VERSION" == "2.7" ]]; then
         curl https://repo.continuum.io/miniconda/Miniconda-latest-MacOSX-x86_64.sh -o miniconda.sh;
       else
-        curl https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh;
+        curl https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh;
       fi
     else
       if [[ "$PYTHON_VERSION" == "2.7" ]]; then
@@ -47,6 +47,7 @@ install:
   - conda create -q -n test-environment python=$PYTHON_VERSION
   - source activate test-environment
 
+install:
   # Install dependencies
   - "conda config --add channels hydroffice"
   - "conda config --add channels SciTools"
@@ -67,8 +68,13 @@ after_script:
   # If tests are successful, create a source distribution.
   - "python setup.py sdist"
   # Freeze the application using PyInstaller
-  - "pyinstaller BAGExplorer.1file.spec"
+  - "pyinstaller --clean -y BAGExplorer.1file.spec"
 
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      conda install -c ilastik py2app
+      npm install -g appdmg
+    else
+    fi
 addons:
   artifacts:
     debug: true
