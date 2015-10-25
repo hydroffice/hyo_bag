@@ -4,6 +4,11 @@ History
 0.2
 ~~~
 
+2015-10-24
+
+- Split BAG Explorer as stand-alone hydro-package
+
+
 2015-10-09
 
 - Added BAG Explorer

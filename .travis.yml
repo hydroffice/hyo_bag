@@ -60,20 +60,10 @@ script:
   - py.test
 
 after_script:
-  # freezing stuff
-  - conda install -q pydap wxpython
-  - pip install hdf_compass
-  - pip install pyinstaller
-
   # If tests are successful, create a source distribution.
   - python setup.py sdist
-  # Freeze the application using PyInstaller
-  - pyinstaller --clean -y BAGExplorer.1file.spec
-
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       python setup.py bdist_wheel;
-      conda install -c ilastik py2app;
-      npm install -g appdmg;
     fi
 
 addons:

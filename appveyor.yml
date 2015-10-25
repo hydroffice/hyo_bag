@@ -1,4 +1,4 @@
-version: 0.2.3.dev0-{build}
+version: develop-{build}
 
 branches:
   only:
@@ -7,9 +7,6 @@ branches:
 environment:
   global:
     MINICONDA: "C:\\tools\\Miniconda"
-    # SDK v7.0 MSVC Express 2008's SetEnv.cmd script will fail if the
-    # /E:ON and /V:ON options are not enabled in the batch script intepreter
-    # See: http://stackoverflow.com/a/13751649/163740
 
   matrix:
     - PYTHON_VERSION: 2.7
@@ -31,12 +28,15 @@ install:
   - "python --version"
 
   # Install dependencies
-  - "conda install -q numpy matplotlib h5py lxml pytest"
+  - conda config --add channels hydroffice
+  - conda config --add channels SciTools
+  - conda config --add channels IOOS
+  - conda install -q numpy matplotlib h5py lxml pytest
 
-  # Add to path
-  - "SET PYTHONPATH=%PYTHONPATH%;%CD%"
+  - python setup.py install
 
-build: off
+build:
+  - python setup.py install
 
 test_script:
   - "py.test"
