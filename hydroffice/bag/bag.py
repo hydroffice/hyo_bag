@@ -6,7 +6,6 @@ import logging
 import numpy as np
 import h5py
 from lxml import etree
-from lxml import isoschematron
 
 log = logging.getLogger(__name__)
 
@@ -200,6 +199,14 @@ class BAGFile(File):
             schematron_doc = etree.parse(schematron_path)
         except etree.DocumentInvalid as e:
             log.warning("unabled to parse BAG schematron: %s" % e)
+            self.meta_errors.append(e.message)
+            return False
+
+        try:
+            from lxml import isoschematron
+        except IOError as e:
+            msg = "Unable to load lxml isoschematron files"
+            log.warning("%s: %s" % (msg, e))
             self.meta_errors.append(e.message)
             return False
 
