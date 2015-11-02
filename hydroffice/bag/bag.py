@@ -234,6 +234,19 @@ class BAGFile(File):
 
         return is_valid
 
+    def validation_info(self):
+        """ Return a message string with the result of the validation """
+        msg = str()
+
+        msg += "XML input source: %s\nValidation output: " % self._bag_metadata
+        if self.validate_metadata():
+            msg += "VALID"
+        else:
+            msg += "INVALID\nReasons:\n"
+            for err_msg in self.meta_errors:
+                msg += " - %s\n" % err_msg
+        return msg
+
     def populate_metadata(self):
         """ Populate metadata class """
 

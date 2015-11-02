@@ -43,7 +43,7 @@ bag_1.close()
 
 try:
     fake_0 = File(file_fake_0)
-except BAGError:
+except IOError:
     print("Expected exception")
 
 

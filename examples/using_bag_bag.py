@@ -24,12 +24,13 @@ bag_0 = BAGFile(file_bag_0)
 print(bag_0)
 
 print(type(bag_0.elevation(mask_nan=True)), bag_0.elevation(mask_nan=True).shape, bag_0.elevation(mask_nan=True).dtype)
-# plt.contourf(bag_0.elevation(mask_nan=True))
-# plt.show()
+ax =plt.contourf(bag_0.elevation(mask_nan=True))
+plt.colorbar(ax)
+plt.show()
 
 print(type(bag_0.uncertainty(mask_nan=True)), bag_0.uncertainty(mask_nan=True).shape, bag_0.uncertainty(mask_nan=True).dtype)
-# plt.contourf(bag_0.uncertainty(mask_nan=True))
-# plt.show()
+plt.contourf(bag_0.uncertainty(mask_nan=True))
+plt.show()
 
 print(type(bag_0.tracking_list()), bag_0.tracking_list().shape, bag_0.tracking_list().dtype)
 

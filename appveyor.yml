@@ -34,7 +34,7 @@ install:
 
 build: off
 build_script:
-  - python setup.py build
+  - python setup.py -e .
 
 test: off
 test_script:
