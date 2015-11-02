@@ -52,12 +52,12 @@ install:
   - conda config --add channels hydroffice
   - conda config --add channels SciTools
   - conda config --add channels IOOS
-  - conda install -q numpy matplotlib h5py lxml pytest
+  - conda install -q numpy matplotlib h5py lxml
 
   - python setup.py install
 
 script:
-  - py.test
+  - python setup.py test
 
 after_script:
   # If tests are successful, create a source distribution.

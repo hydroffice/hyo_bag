@@ -20,4 +20,4 @@ History
 
 2015-03-31
 
-- Initial release.
+- Initial commit.

@@ -4,7 +4,7 @@ hydroffice.bag - BAG package for HydrOffice
 -----------------------------------------------------------------------------
 
 hydroffice.bag
-Copyright 2015- by G.Masetti and B.R.Calder (CCOM, UNH).
+Copyright 2015 - G.Masetti and B.R.Calder.
 
 All rights reserved.
 

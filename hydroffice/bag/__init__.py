@@ -17,8 +17,10 @@ __version__ = '0.2.4'
 __doc__ = 'BAG'
 __author__ = 'gmasetti@ccom.unh.edu, brc@ccom.unh.edu'
 __license__ = 'BSD-like license'
-__copyright__ = 'Copyright 2015 Giuseppe Masetti, Brian R. Calder (CCOM/JHC, UNH)'
+__copyright__ = 'Copyright 2015 Giuseppe Masetti, Brian R. Calder'
 
 
 # def hyo():
-#     return __doc__, __version__
+# def hyo_app():
+def hyo_lib():
+    return __doc__, __version__
