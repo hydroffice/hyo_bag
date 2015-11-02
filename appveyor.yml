@@ -1,4 +1,4 @@
-version: develop-{build}
+version: {branch}.{build}
 
 branches:
   only:
@@ -33,7 +33,7 @@ install:
   - conda config --add channels IOOS
   - conda install -q numpy matplotlib h5py lxml
 
-build:
+build_script:
   - python setup.py install
 
 test_script:
