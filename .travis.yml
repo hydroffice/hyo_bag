@@ -15,7 +15,6 @@ env:
 
 matrix:
   allow_failures:
-  - env: PYTHON_VERSION=3.4
   - os: osx
 
 before_install:

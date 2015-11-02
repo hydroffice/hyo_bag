@@ -5,16 +5,15 @@ branches:
   - 0.2.3
 
 environment:
-  global:
-    MINICONDA: "C:\\tools\\Miniconda"
-
   matrix:
     - PYTHON_VERSION: 2.7
+      PYTHON_ARCH: x86
+      MINICONDA: "C:\\Miniconda"
     - PYTHON_VERSION: 3.4
+      PYTHON_ARCH: x64
+      MINICONDA: "C:\\Miniconda3-x64"
 
 install:
-  # Install miniconda using a powershell script.
-  - "choco install -y miniconda"
   - "SET PATH=%MINICONDA%;%MINICONDA%\\Scripts;%PATH%"
 
   # Install the build and runtime dependencies of the project.
@@ -22,19 +21,21 @@ install:
   - "conda update -q conda"
   - "conda info -a"
   - "conda create -q -n test-environment python=%PYTHON_VERSION%"
+  - "conda config --add channels hydroffice"
+  - "conda config --add channels SciTools"
+  - "conda config --add channels IOOS"
   - "activate test-environment"
 
   # Check that we have the expected version of Python
   - "python --version"
 
   # Install dependencies
-  - conda config --add channels hydroffice
-  - conda config --add channels SciTools
-  - conda config --add channels IOOS
-  - conda install -q numpy matplotlib h5py lxml
+  - conda install -q numpy matplotlib h5py lxml cython
 
+build: off
 build_script:
   - python setup.py install
 
+test: off
 test_script:
   - python setup.py test
