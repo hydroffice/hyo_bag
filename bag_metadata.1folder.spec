@@ -1,12 +1,12 @@
-# Builds a single-file EXE for distribution.
+# Builds a single-folder EXE for distribution.
 # Note that an "unbundled" distribution launches much more quickly, but
 # requires an installer program to distribute.
 #
 # To compile, execute the following within the source directory:
 #
-# python /path/to/pyinstaller.py bag_validate.1file.spec
+# python /path/to/pyinstaller.py bag_metadata.1folder.spec
 #
-# The resulting .exe file is placed in the dist/ folder.
+# The resulting .exe file is placed in the dist/bag_metadata folder.
 
 from PyInstaller.building.build_main import Analysis, PYZ, EXE, COLLECT, BUNDLE, TOC
 from PyInstaller import is_darwin
@@ -14,7 +14,6 @@ import os
 
 
 def collect_pkg_data(package, include_py_files=False, subdir=None):
-    """ helper function to collect data based on the passed package """
     from PyInstaller.utils.hooks import get_package_paths, remove_prefix, PY_IGNORE_EXTENSIONS
 
     # Accept only strings as packages.
@@ -47,10 +46,7 @@ icon_file = os.path.join(icon_folder, 'BAG.ico')
 if is_darwin:
     icon_file = os.path.join(icon_folder, 'BAG.icns')
 
-version = '0.2.3.dev1'
-app_name = 'bag_validate'  # + version
-    
-a = Analysis([os.path.abspath(os.path.join('hydroffice', 'bag', 'tools', 'bag_validate.py'))],
+a = Analysis([os.path.abspath(os.path.join('hydroffice', 'bag', 'tools', 'bag_metadata.py'))],
              pathex=[],
              hiddenimports=[],
              excludes=["PySide", "scipy", "wxPython", "wx", "PyQt4", "pandas", "IPython"],
@@ -60,19 +56,24 @@ a = Analysis([os.path.abspath(os.path.join('hydroffice', 'bag', 'tools', 'bag_va
 pyz = PYZ(a.pure)
 exe = EXE(pyz,
           a.scripts,
-          a.binaries,
-          a.zipfiles,
-          a.datas,
-          pkg_data_bag,
-          pkg_data_lxml,
-          name=app_name,
+          exclude_binaries=True,
+          name='bag_metadata',
           debug=False,
           strip=None,
-          upx=False,
+          upx=True,
           console=True,
           icon=icon_file)
+coll = COLLECT(exe,
+               a.binaries,
+               a.zipfiles,
+               a.datas,
+               pkg_data_bag,
+               pkg_data_lxml,
+               strip=None,
+               upx=True,
+               name='bag_metadata')
 if is_darwin:
-    app = BUNDLE(exe,
-                 name='bag_validate.app',
+    app = BUNDLE(coll,
+                 name='bag_metadata.app',
                  icon=icon_file,
                  bundle_identifier=None)

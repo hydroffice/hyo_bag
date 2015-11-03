@@ -34,6 +34,7 @@ class BAGFile(File):
     _bag_uncertainty_max_uv = "Maximum Uncertainty Value"
     _bag_nan = 1000000
 
+    default_metadata_file = "BAG_metadata.xml"
 
     def __init__(self, name, mode=None, driver=None,
                  libver=None, userblock_size=None, swmr=False, **kwds):
@@ -116,11 +117,12 @@ class BAGFile(File):
         return self[BAGFile._bag_tracking_list][:]
 
     def metadata(self, as_string=True, as_pretty_xml=True):
-        """
-        Return the metadata
+        """ Return the metadata
 
         as_string
             If True, convert the metadata from a dataset of characters to a string
+        as_pretty_xml
+            If True, return the xml in a pretty format
         """
         if as_string and not as_pretty_xml:
             try:
@@ -139,11 +141,10 @@ class BAGFile(File):
         return self[BAGFile._bag_metadata][:]
 
     def extract_metadata(self, name=None):
-        """
-        Save metadata on disk
+        """ Save metadata on disk
 
         name
-            The file path where the metadata will be save. If None, "BAG_metadata.xml"
+            The file path where the metadata will be saved. If None, use a default name.
         """
 
         meta_xml = self.metadata(as_pretty_xml=True)
@@ -152,15 +153,13 @@ class BAGFile(File):
             return
 
         if name is None:
-            name = os.path.join("BAG_metadata.xml")
+            name = os.path.join(self.default_metadata_file)
 
         with open(os.path.abspath(name), 'w') as fid:
             fid.write(meta_xml)
 
     def validate_metadata(self):
-        """
-        Validate metadata based on XML Schemas and schematron.
-        """
+        """ Validate metadata based on XML Schemas and schematron. """
         # clean metadata error list
         self.meta_errors = list()
         # assuming a valid BAG

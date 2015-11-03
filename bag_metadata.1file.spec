@@ -4,7 +4,7 @@
 #
 # To compile, execute the following within the source directory:
 #
-# python /path/to/pyinstaller.py bag_validate.1file.spec
+# python /path/to/pyinstaller.py bag_metadata.1file.spec
 #
 # The resulting .exe file is placed in the dist/ folder.
 
@@ -48,9 +48,9 @@ if is_darwin:
     icon_file = os.path.join(icon_folder, 'BAG.icns')
 
 version = '0.2.3.dev1'
-app_name = 'bag_validate'  # + version
+app_name = 'bag_metadata'  # + version
     
-a = Analysis([os.path.abspath(os.path.join('hydroffice', 'bag', 'tools', 'bag_validate.py'))],
+a = Analysis([os.path.abspath(os.path.join('hydroffice', 'bag', 'tools', 'bag_metadata.py'))],
              pathex=[],
              hiddenimports=[],
              excludes=["PySide", "scipy", "wxPython", "wx", "PyQt4", "pandas", "IPython"],
@@ -73,6 +73,6 @@ exe = EXE(pyz,
           icon=icon_file)
 if is_darwin:
     app = BUNDLE(exe,
-                 name='bag_validate.app',
+                 name='bag_metadata.app',
                  icon=icon_file,
                  bundle_identifier=None)

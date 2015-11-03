@@ -49,7 +49,7 @@ if is_darwin:
 a = Analysis([os.path.abspath(os.path.join('hydroffice', 'bag', 'tools', 'bag_validate.py'))],
              pathex=[],
              hiddenimports=[],
-             excludes=["PySide"],
+             excludes=["PySide", "scipy", "wxPython", "wx", "PyQt4", "pandas", "IPython"],
              hookspath=None,
              runtime_hooks=None)
 
