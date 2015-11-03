@@ -31,8 +31,8 @@ The main goal is to speed up both algorithms testing and research-2-operation.
 The BAG hydro-package collects tools for working with BAG files. BAG is a data format by the `ONS-WG <http://www.opennavsurf.org/>`_ (Open Navigation Surface Working Group).
 
 
-Development Environment
------------------------
+Dependencies
+------------
 
 For the BAG library, you will need:
 
@@ -40,6 +40,7 @@ For the BAG library, you will need:
 * ``numpy``
 * ``h5py``
 * ``lxml``
+* ``PyInstaller`` *[for freezing the tools]*
 
 For running some of the example scripts, you might also need:
 
