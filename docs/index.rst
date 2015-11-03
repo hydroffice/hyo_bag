@@ -19,6 +19,7 @@ Contents
    api/modules
    how_to_release
    how_to_freeze
+   banner
 
 Indices and tables
 ==================
