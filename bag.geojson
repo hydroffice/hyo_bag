@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "Name": "bdb_00.bag", "Rows": 32, "Cols": 31, "Abstract": "Test abstract", "Date": "2015-08-15T00:00:00Z", "SRS": "PROJCS[\"EPSG:32619\",GEOGCS[\"unnamed\",DATUM[\"WGS_1984\",SPHERO[..]", "Tools": "r0.2.4" }, "geometry": { "type": "LineString", "coordinates": [ [ -69.8516, 35.7477, 0.0 ], [ -69.8516, 35.7768, 0.0 ], [ -69.8176, 35.7768, 0.0 ], [ -69.8176, 35.7477, 0.0 ], [ -69.8516, 35.7477, 0.0 ] ] } }
+]
+}

@@ -251,9 +251,10 @@ class BAGFile(File):
 
         if self.meta is not None:
             log.debug("metadata already populated")
-            return
+            return self.meta
 
         self.meta = Meta(meta_xml=self.metadata(as_pretty_xml=True))
+        return self.meta
 
     def _str_group_info(self, grp):
         if grp == self._bag_root:

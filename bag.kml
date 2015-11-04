@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="BAG" id="BAG">
+	<SimpleField name="Rows" type="int"></SimpleField>
+	<SimpleField name="Cols" type="int"></SimpleField>
+	<SimpleField name="Abstract" type="string"></SimpleField>
+	<SimpleField name="Date" type="string"></SimpleField>
+	<SimpleField name="SRS" type="string"></SimpleField>
+	<SimpleField name="Tools" type="string"></SimpleField>
+</Schema>
+<Folder><name>BAG</name>
+  <Placemark>
+	<name>bdb_00.bag</name>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#BAG">
+		<SimpleData name="Rows">32</SimpleData>
+		<SimpleData name="Cols">31</SimpleData>
+		<SimpleData name="Abstract">Test abstract</SimpleData>
+		<SimpleData name="Date">2015-08-15T00:00:00Z</SimpleData>
+		<SimpleData name="SRS">PROJCS[&quot;EPSG:32619&quot;,GEOGCS[&quot;unnamed&quot;,DATUM[&quot;WGS_1984&quot;,SPHERO[..]</SimpleData>
+		<SimpleData name="Tools">r0.2.4</SimpleData>
+	</SchemaData></ExtendedData>
+      <LineString><coordinates>-69.8516,35.7477,0 -69.8516,35.7768,0 -69.8176,35.7768,0 -69.8176,35.7477,0 -69.8516,35.7477,0</coordinates></LineString>
+  </Placemark>
+</Folder>
+</Document></kml>
