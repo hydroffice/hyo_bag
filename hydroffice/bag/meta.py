@@ -94,6 +94,10 @@ class Meta(object):
         return (self.x_min is not None) and (self.x_max is not None) and \
                (self.y_min is not None) and (self.y_max is not None)
 
+    def geo_extent(self):
+        """ Return the geographic extent as a tuple: (x_min, x_max, y_min, y_max) """
+        return self.x_min, self.x_max, self.y_min, self.y_max
+
     def wkt_bbox(self):
         return "LINESTRING Z(%.6f %.6f 0, %.6f %.6f 0, %.6f %.6f 0, %.6f %.6f 0, %.6f %.6f 0)" \
                % (self.x_min, self.y_min, self.x_min, self.y_max, self.x_max, self.y_max, self.x_max, self.y_min,
