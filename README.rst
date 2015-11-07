@@ -1,11 +1,15 @@
 HydrOffice BAG
 ==============
 
-.. image:: https://badge.fury.io/py/hydroffice.bag.png
-    :target: http://badge.fury.io/py/hydroffice.bag
+.. image:: https://img.shields.io/pypi/v/hydroffice.bag.svg
+    :target: https://pypi.python.org/pypi/hydroffice.bag
     :alt: PyPi version
 
-.. image:: https://readthedocs.org/projects/hydroffice-bag/badge/?version=latest
+.. image:: https://img.shields.io/badge/docs-stable-brightgreen.svg
+    :target: http://hydroffice-bag.readthedocs.org/en/latest/?badge=latest
+    :alt: Documentation Status
+
+.. image:: https://img.shields.io/badge/docs-latest-brightgreen.svg
     :target: http://hydroffice-bag.readthedocs.org/en/latest/?badge=latest
     :alt: Documentation Status
 

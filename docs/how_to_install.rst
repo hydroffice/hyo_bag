@@ -1,4 +1,6 @@
 How to install
 ==============
 
-TBD
+* the simplest way: ``pip install hydroffice.bag``
+
+* for the latest features: ``hg clone ssh://hg@bitbucket.org/gmasetti/hyo_bag``

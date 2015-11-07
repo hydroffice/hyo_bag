@@ -16,9 +16,9 @@ Contents
    how_to_install
    how_to_use
    how_to_contribute
-   api/modules
+   api
    how_to_release
-   how_to_freeze
+   dev_commands
    banner
 
 Indices and tables
