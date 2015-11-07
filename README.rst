@@ -6,12 +6,12 @@ HydrOffice BAG
     :alt: PyPi version
 
 .. image:: https://img.shields.io/badge/docs-stable-brightgreen.svg
-    :target: http://hydroffice-bag.readthedocs.org/en/latest/?badge=latest
-    :alt: Documentation Status
+    :target: http://giumas.github.io/hyo_bag/stable
+    :alt: Stable Documentation
 
 .. image:: https://img.shields.io/badge/docs-latest-brightgreen.svg
-    :target: http://hydroffice-bag.readthedocs.org/en/latest/?badge=latest
-    :alt: Documentation Status
+    :target: http://giumas.github.io/hyo_bag/latest
+    :alt: Latest Documentation
 
 .. image:: https://ci.appveyor.com/api/projects/status/sm42iv111rvpqydl?svg=true
     :target: https://ci.appveyor.com/project/gmasetti/hyo-bag
