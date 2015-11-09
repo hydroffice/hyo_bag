@@ -14,7 +14,7 @@ from .base import is_bag
 from .bag import BAGFile
 
 
-__version__ = '0.2.5'
+__version__ = '0.2.6'
 __doc__ = 'BAG'
 __author__ = 'gmasetti@ccom.unh.edu, brc@ccom.unh.edu'
 __license__ = 'BSD-like license'
