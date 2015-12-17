@@ -21,7 +21,8 @@ __license__ = 'BSD-like license'
 __copyright__ = 'Copyright 2015 Giuseppe Masetti, Brian R. Calder'
 
 
-# def hyo():
 # def hyo_app():
+#     return __doc__, __version__
+
 def hyo_lib():
     return __doc__, __version__
