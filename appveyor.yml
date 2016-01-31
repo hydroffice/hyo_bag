@@ -1,0 +1,42 @@
+version: 0.2.3.dev0-{build}
+
+branches:
+  only:
+  - 0.2.3
+
+environment:
+  global:
+    MINICONDA: "C:\\tools\\Miniconda"
+    # SDK v7.0 MSVC Express 2008's SetEnv.cmd script will fail if the
+    # /E:ON and /V:ON options are not enabled in the batch script intepreter
+    # See: http://stackoverflow.com/a/13751649/163740
+
+  matrix:
+    - PYTHON_VERSION: 2.7
+    - PYTHON_VERSION: 3.4
+
+install:
+  # Install miniconda using a powershell script.
+  - "choco install -y miniconda"
+  - "SET PATH=%MINICONDA%;%MINICONDA%\\Scripts;%PATH%"
+
+  # Install the build and runtime dependencies of the project.
+  - "conda config --set always_yes yes --set changeps1 no"
+  - "conda update -q conda"
+  - "conda info -a"
+  - "conda create -q -n test-environment python=%PYTHON_VERSION%"
+  - "activate test-environment"
+
+  # Check that we have the expected version of Python
+  - "python --version"
+
+  # Install dependencies
+  - "conda install -q numpy matplotlib h5py lxml pytest"
+
+  # Add to path
+  - "SET PYTHONPATH=%PYTHONPATH%;%CD%"
+
+build: off
+
+test_script:
+  - "py.test"

@@ -4,20 +4,21 @@
 HydrOffice BAG's documentation
 ==============================
 
-In brief
---------
-
-The BAG hydro-package collects tools for working with BAG files. BAG is a data format by the `ONS-WG <http://www.opennavsurf.org/>`_ (Open Navigation Surface Working Group).
-
-BAG Explorer is a light application, based on HDF Compass with a BAG plugin, to explore BAG data files.
-
 Contents
 --------
 
 .. toctree::
    :maxdepth: 2
 
+   in_brief
+   requirements
+   license
+   how_to_install
+   how_to_use
+   how_to_contribute
    api/modules
+   how_to_release
+   how_to_freeze
 
 Indices and tables
 ==================

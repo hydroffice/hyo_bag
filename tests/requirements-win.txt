@@ -1,0 +1,8 @@
+# Include some common dependencies for tests.
+-r requirements.txt
+
+pyinstaller
+numpy
+matplotlib
+h5py
+lxml

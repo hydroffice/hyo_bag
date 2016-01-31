@@ -21,7 +21,7 @@ class TestBagBase(object):
     def test_bag_File_raise(self):
         from hydroffice.bag.base import is_bag, File
         from hydroffice.bag.helper import BAGError
-        with pytest.raises(BAGError):
+        with pytest.raises(IOError):
             File(self.file_fake_0)
 
     def test_bag_File_open(self):
