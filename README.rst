@@ -13,8 +13,8 @@ HydrOffice BAG
     :target: http://giumas.github.io/hyo_bag/latest
     :alt: Latest Documentation
 
-.. image:: https://ci.appveyor.com/api/projects/status/sm42iv111rvpqydl?svg=true
-    :target: https://ci.appveyor.com/project/gmasetti/hyo-bag
+.. image:: https://ci.appveyor.com/api/projects/status/thng6eg4g05s8mi4?svg=true
+    :target: https://ci.appveyor.com/project/giumas/hyo-bag
     :alt: AppVeyor Status
 
 .. image:: https://travis-ci.org/giumas/hyo_bag.svg?branch=master
