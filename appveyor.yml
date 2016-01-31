@@ -8,16 +8,16 @@ environment:
   matrix:
     - PYTHON_VERSION: 2.7
       PYTHON_ARCH: x86
-      MINICONDA: "C:\Miniconda"
+      MINICONDA: C:\Miniconda
     - PYTHON_VERSION: 3.4
       PYTHON_ARCH: x64
-      MINICONDA: "C:\Miniconda3-x64"
+      MINICONDA: C:\Miniconda3-x64
 
 matrix:
   allow_failures:
     - PYTHON_VERSION: 3.4
       PYTHON_ARCH: x64
-      MINICONDA: "C:\Miniconda3-x64"
+      MINICONDA: C:\Miniconda3-x64
 
 install:
   - set PATH=%MINICONDA%;%MINICONDA%\Scripts;%PATH%
