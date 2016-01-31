@@ -2,25 +2,25 @@ version: 1.0.{build}-{branch}
 
 branches:
   only:
-  - 0.2.3
+  - 0.2.7
 
 environment:
   matrix:
     - PYTHON_VERSION: 2.7
       PYTHON_ARCH: x86
-      MINICONDA: "C:\\Miniconda"
+      MINICONDA: "C:\Miniconda"
     - PYTHON_VERSION: 3.4
       PYTHON_ARCH: x64
-      MINICONDA: "C:\\Miniconda3-x64"
+      MINICONDA: "C:\Miniconda3-x64"
 
 matrix:
   allow_failures:
     - PYTHON_VERSION: 3.4
       PYTHON_ARCH: x64
-      MINICONDA: "C:\\Miniconda3-x64"
+      MINICONDA: "C:\Miniconda3-x64"
 
 install:
-  - "SET PATH=%MINICONDA%;%MINICONDA%\\Scripts;%PATH%"
+  - set PATH=%MINICONDA%;%MINICONDA%\Scripts;%PATH%
 
   # Install the build and runtime dependencies of the project.
   - "conda config --set always_yes yes --set changeps1 no"
