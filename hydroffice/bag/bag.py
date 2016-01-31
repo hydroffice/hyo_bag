@@ -254,7 +254,7 @@ class BAGFile(File):
         """ Populate metadata class """
 
         if self.meta is not None:
-            #log.debug("metadata already populated")
+            # log.debug("metadata already populated")
             return self.meta
 
         self.meta = Meta(meta_xml=self.metadata(as_pretty_xml=True))

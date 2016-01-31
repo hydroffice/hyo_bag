@@ -47,10 +47,10 @@ class Meta(object):
         self._read_wkt_prj()
 
         # bbox
-        self.x_min = None
-        self.x_max = None
-        self.y_min = None
-        self.y_max = None
+        self.lon_min = None
+        self.lon_max = None
+        self.lat_min = None
+        self.lat_max = None
         self._read_bbox()
 
         # abstract
@@ -83,25 +83,25 @@ class Meta(object):
             output += "\n    <abstract=%s>" % self.abstract
 
         output += "\n    <bbox>"
-        if (self.x_min is not None) and (self.x_max is not None):
-            output += "\n        <x min=%s, max=%s>" % (self.x_min, self.x_max)
-        if (self.y_min is not None) and (self.y_max is not None):
-            output += "\n        <y min=%s, max=%s>" % (self.y_min, self.y_max)
+        if (self.lon_min is not None) and (self.lon_max is not None):
+            output += "\n        <x min=%s, max=%s>" % (self.lon_min, self.lon_max)
+        if (self.lat_min is not None) and (self.lat_max is not None):
+            output += "\n        <y min=%s, max=%s>" % (self.lat_min, self.lat_max)
 
         return output
 
     def valid_bbox(self):
-        return (self.x_min is not None) and (self.x_max is not None) and \
-               (self.y_min is not None) and (self.y_max is not None)
+        return (self.lon_min is not None) and (self.lon_max is not None) and \
+               (self.lat_min is not None) and (self.lat_max is not None)
 
     def geo_extent(self):
         """ Return the geographic extent as a tuple: (x_min, x_max, y_min, y_max) """
-        return self.x_min, self.x_max, self.y_min, self.y_max
+        return self.lon_min, self.lon_max, self.lat_min, self.lat_max
 
     def wkt_bbox(self):
         return "LINESTRING Z(%.6f %.6f 0, %.6f %.6f 0, %.6f %.6f 0, %.6f %.6f 0, %.6f %.6f 0)" \
-               % (self.x_min, self.y_min, self.x_min, self.y_max, self.x_max, self.y_max, self.x_max, self.y_min,
-                  self.x_min, self.y_min)
+               % (self.lon_min, self.lat_min, self.lon_min, self.lat_max, self.lon_max, self.lat_max, self.lon_max, self.lat_min,
+                  self.lon_min, self.lat_min)
 
     def _read_rows_and_cols(self):
         """ attempts to read rows and cols info """
@@ -134,8 +134,8 @@ class Meta(object):
             return
 
         try:
-            self.res_x = int(ret[0].text)
-            self.res_y = int(ret[1].text)
+            self.res_x = float(ret[0].text)
+            self.res_y = float(ret[1].text)
 
         except (ValueError, IndexError) as e:
             log.warning("unable to read res x and y: %s" % e)
@@ -191,8 +191,8 @@ class Meta(object):
             return
 
         try:
-            self.x_min = float(ret_x_min[0].text)
-            self.x_max = float(ret_x_max[0].text)
+            self.lon_min = float(ret_x_min[0].text)
+            self.lon_max = float(ret_x_max[0].text)
         except (ValueError, IndexError) as e:
             log.warning("unable to read the bbox's longitude values: %s" % e)
             return
@@ -207,8 +207,8 @@ class Meta(object):
             return
 
         try:
-            self.y_min = float(ret_y_min[0].text)
-            self.y_max = float(ret_y_max[0].text)
+            self.lat_min = float(ret_y_min[0].text)
+            self.lat_max = float(ret_y_max[0].text)
         except (ValueError, IndexError) as e:
             log.warning("unable to read the bbox's latitude values: %s" % e)
             return
