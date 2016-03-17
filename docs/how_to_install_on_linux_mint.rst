@@ -30,9 +30,9 @@ Test:
 
 * Run the script and you should get the library version without errors:
 
-.. code-block:: shell
-
-   BAG version: 0.2.6
+.. image:: ./_static/linux_mint_spyder.png
+    :align: center
+    :alt: Spyder
 
 .. NOTE::
    If you get issues on the installation, you may open a ticket:
