@@ -1,5 +1,5 @@
-hydroffice namespace
-====================
+hydroffice package
+==================
 
 Subpackages
 -----------
@@ -7,7 +7,6 @@ Subpackages
 .. toctree::
 
     hydroffice.bag
-    hydroffice.bag_explorer
 
 Module contents
 ---------------

@@ -1,13 +1,14 @@
 License
 =======
 
-
 Copyright Notice and License Terms for
 hydroffice.bag - BAG package for HydrOffice
+
 -----------------------------------------------------------------------------
 
 hydroffice.bag
-Copyright 2015- by G.Masetti and B.R.Calder (CCOM, UNH).
+
+Copyright 2015 - G.Masetti and B.R.Calder.
 
 All rights reserved.
 
@@ -33,7 +34,7 @@ provided that the following conditions are met:
 5. Neither the name of G.Masetti and B.R.Calder, nor the name
    of any Contributor may be used to endorse or promote products derived
    from this software without specific prior written permission
-   from Giuseppe Masetti and Brian R. Calder or the Contributor, respectively.
+   from G.Masetti and B.R.Calder or the Contributor, respectively.
 
 DISCLAIMER:
 THIS SOFTWARE IS PROVIDED BY THE CCOM AND THE CONTRIBUTORS

@@ -1,6 +1,13 @@
 hydroffice.bag package
 ======================
 
+Subpackages
+-----------
+
+.. toctree::
+
+    hydroffice.bag.tools
+
 Submodules
 ----------
 
@@ -20,6 +27,22 @@ hydroffice.bag.base module
     :undoc-members:
     :show-inheritance:
 
+hydroffice.bag.bbox module
+--------------------------
+
+.. automodule:: hydroffice.bag.bbox
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+hydroffice.bag.elevation module
+-------------------------------
+
+.. automodule:: hydroffice.bag.elevation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 hydroffice.bag.helper module
 ----------------------------
 
@@ -32,6 +55,22 @@ hydroffice.bag.meta module
 --------------------------
 
 .. automodule:: hydroffice.bag.meta
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+hydroffice.bag.tracklist module
+-------------------------------
+
+.. automodule:: hydroffice.bag.tracklist
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+hydroffice.bag.uncertainty module
+---------------------------------
+
+.. automodule:: hydroffice.bag.uncertainty
     :members:
     :undoc-members:
     :show-inheritance:

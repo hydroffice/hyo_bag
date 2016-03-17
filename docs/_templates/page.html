@@ -2,19 +2,10 @@
 {% block body %}
 <div class="deck">
 
-    {% if version == "0.2.3" %}
-        <p class="developmentversion">
-        This document is for HydrOffice BAG's development version, which can be
-        significantly different from previous releases. Get old docs here:
-
-        <a href="https://hydroffice-bag.readthedocs.org/en/latest/">0.2.2</a>.
-        </p>
-    {% else %}
-        <p>
-        This document describes the current stable version of HydrOffice BAG ({{ version }}). For development docs,
-        <a href="https://hydroffice-bag.readthedocs.org/en/stable/">go here</a>.
-        </p>
-    {% endif %}
+    <p>
+    This document describes the HydrOffice BAG library and tools ({{ version }}). For the source code,
+    <a href="https://bitbucket.org/gmasetti/hyo_bag">go here</a>.
+    </p>
 
 </div>
     {{ body }}

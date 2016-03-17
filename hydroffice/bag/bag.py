@@ -6,7 +6,6 @@ import logging
 import numpy as np
 import h5py
 from lxml import etree
-from lxml import isoschematron
 
 log = logging.getLogger(__name__)
 
@@ -27,14 +26,15 @@ class BAGFile(File):
     _bag_metadata = "BAG_root/metadata"
     _bag_tracking_list = "BAG_root/tracking_list"
     _bag_tracking_list_len = "Tracking List Length"
-    _bag_tracking_list_type = np.dtype([('Row', np.uint32), ('Col', np.uint32),
-                                        ('Depth', np.float32), ('Uncertainty', np.float32),
+    _bag_tracking_list_type = np.dtype([('row', np.uint32), ('col', np.uint32),
+                                        ('depth', np.float32), ('uncertainty', np.float32),
                                         ('track_code', np.byte), ('list_series', np.uint16)])
     _bag_uncertainty = "BAG_root/uncertainty"
     _bag_uncertainty_min_uv = "Minimum Uncertainty Value"
     _bag_uncertainty_max_uv = "Maximum Uncertainty Value"
-    _bag_nan = 1000000
+    BAG_NAN = 1000000
 
+    default_metadata_file = "BAG_metadata.xml"
 
     def __init__(self, name, mode=None, driver=None,
                  libver=None, userblock_size=None, swmr=False, **kwds):
@@ -91,7 +91,7 @@ class BAGFile(File):
         """
         if mask_nan:
             el = self[BAGFile._bag_elevation][:]
-            mask = el == BAGFile._bag_nan
+            mask = el == BAGFile.BAG_NAN
             el[mask] = np.nan
             return el
 
@@ -106,7 +106,7 @@ class BAGFile(File):
         """
         if mask_nan:
             el = self[BAGFile._bag_uncertainty][:]
-            mask = el == BAGFile._bag_nan
+            mask = el == BAGFile.BAG_NAN
             el[mask] = np.nan
             return el
 
@@ -116,12 +116,17 @@ class BAGFile(File):
         """ Return the tracking list as numpy array """
         return self[BAGFile._bag_tracking_list][:]
 
+    def tracking_list_fields(self):
+        """ Return the tracking list field names """
+        return self[BAGFile._bag_tracking_list].dtype.names
+
     def metadata(self, as_string=True, as_pretty_xml=True):
-        """
-        Return the metadata
+        """ Return the metadata
 
         as_string
             If True, convert the metadata from a dataset of characters to a string
+        as_pretty_xml
+            If True, return the xml in a pretty format
         """
         if as_string and not as_pretty_xml:
             try:
@@ -140,11 +145,10 @@ class BAGFile(File):
         return self[BAGFile._bag_metadata][:]
 
     def extract_metadata(self, name=None):
-        """
-        Save metadata on disk
+        """ Save metadata on disk
 
         name
-            The file path where the metadata will be save. If None, "BAG_metadata.xml"
+            The file path where the metadata will be saved. If None, use a default name.
         """
 
         meta_xml = self.metadata(as_pretty_xml=True)
@@ -153,15 +157,13 @@ class BAGFile(File):
             return
 
         if name is None:
-            name = os.path.join("BAG_metadata.xml")
+            name = os.path.join(self.default_metadata_file)
 
         with open(os.path.abspath(name), 'w') as fid:
             fid.write(meta_xml)
 
     def validate_metadata(self):
-        """
-        Validate metadata based on XML Schemas and schematron.
-        """
+        """ Validate metadata based on XML Schemas and schematron. """
         # clean metadata error list
         self.meta_errors = list()
         # assuming a valid BAG
@@ -204,6 +206,14 @@ class BAGFile(File):
             return False
 
         try:
+            from lxml import isoschematron
+        except IOError as e:
+            msg = "Unable to load lxml isoschematron files"
+            log.warning("%s: %s" % (msg, e))
+            self.meta_errors.append(e.message)
+            return False
+
+        try:
             schematron = isoschematron.Schematron(schematron_doc, store_report=True)
         except etree.DocumentInvalid as e:
             log.warning("unabled to load BAG schematron: %s" % e)
@@ -227,14 +237,28 @@ class BAGFile(File):
 
         return is_valid
 
+    def validation_info(self):
+        """ Return a message string with the result of the validation """
+        msg = str()
+
+        msg += "XML input source: %s\nValidation output: " % self._bag_metadata
+        if self.validate_metadata():
+            msg += "VALID"
+        else:
+            msg += "INVALID\nReasons:\n"
+            for err_msg in self.meta_errors:
+                msg += " - %s\n" % err_msg
+        return msg
+
     def populate_metadata(self):
         """ Populate metadata class """
 
         if self.meta is not None:
-            log.debug("metadata already populated")
-            return
+            # log.debug("metadata already populated")
+            return self.meta
 
         self.meta = Meta(meta_xml=self.metadata(as_pretty_xml=True))
+        return self.meta
 
     def _str_group_info(self, grp):
         if grp == self._bag_root:
