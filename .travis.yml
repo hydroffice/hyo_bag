@@ -48,7 +48,7 @@ install:
   - conda config --add channels hydroffice
   - conda config --add channels SciTools
   - conda config --add channels IOOS
-  - conda install -q numpy matplotlib h5py lxml
+  - conda install -q numpy matplotlib h5py lxml gdal==1.11.2
   - python setup.py install
 
 script:

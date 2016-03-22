@@ -2,7 +2,7 @@ version: 1.0.{build}-{branch}
 
 branches:
   only:
-  - 0.2.7
+  - default
 
 environment:
   matrix:
@@ -36,7 +36,7 @@ install:
   - "python --version"
 
   # Install dependencies
-  - conda install -q numpy matplotlib h5py lxml cython
+  - conda install -q numpy matplotlib h5py lxml cython gdal==1.11.2
 
 build: off
 build_script:
