@@ -24,7 +24,8 @@ class Elevation2Gdal(object):
         'xyz': [b"XYZ", "bag.elevation.xyz"],
     }
 
-    def __init__(self, bag_elevation, bag_meta, fmt="geotiff", out_file=None):
+    def __init__(self, bag_elevation, bag_meta, fmt="geotiff", out_file=None, epsg=None):
+        """Export the elevation layer in one of the listed formats"""
         assert isinstance(bag_elevation, np.ndarray)
         assert isinstance(bag_meta, Meta)
         self.bag_elv = bag_elevation
@@ -64,5 +65,30 @@ class Elevation2Gdal(object):
 
         # get the required ogr driver
         self.drv = gdal.GetDriverByName(self.formats[fmt][0])
-        self.drv.CreateCopy(self.out_file, self.rst)
+
+        # check if re-projection is required
+        if not epsg:
+            # if not, we just create a copy in the selected format
+            dst_ds = self.drv.CreateCopy(self.out_file, self.rst)
+            dst_ds = None
+            self.rst = None
+            return
+
+        # we need to change projection:
+        # - we create the output srs
+        dst_srs = osr.SpatialReference()
+        dst_srs.ImportFromEPSG(epsg)
+        dst_wkt = dst_srs.ExportToWkt()
+
+        # Call AutoCreateWarpedVRT() to fetch default values for target raster dimensions and geotransform
+        tmp_ds = gdal.AutoCreateWarpedVRT(self.rst,
+                                          None,  # src_wkt : left to default value --> will use the one from source
+                                          dst_wkt,
+                                          gdal.GRA_NearestNeighbour,
+                                          0.125  # error threshold --> use same value as in gdalwarp
+                                          )
+        # Create the final warped raster
+        dst_ds = self.drv.CreateCopy(self.out_file, tmp_ds)
+        dst_ds = None
         self.rst = None
+

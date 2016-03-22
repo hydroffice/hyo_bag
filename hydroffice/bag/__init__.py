@@ -14,11 +14,11 @@ from .base import is_bag
 from .bag import BAGFile
 
 
-__version__ = '0.2.7'
+__version__ = '0.2.8'
 __doc__ = 'BAG'
 __author__ = 'gmasetti@ccom.unh.edu, brc@ccom.unh.edu'
-__license__ = 'BSD license'
-__copyright__ = 'Copyright 2015 Giuseppe Masetti, Brian R. Calder'
+__license__ = 'LGPLv3 license'
+__copyright__ = 'Copyright (c) 2016, University of New Hampshire, Center for Coastal and Ocean Mapping'
 
 
 # def hyo_app():

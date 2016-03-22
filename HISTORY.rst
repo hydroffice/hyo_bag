@@ -1,6 +1,14 @@
 History
 -------
 
+0.3
+~~~
+
+2016-03-21
+
+- Added option to reproject layers into user-defined EPSG
+
+
 0.2
 ~~~
 
