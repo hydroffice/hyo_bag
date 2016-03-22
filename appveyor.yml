@@ -40,7 +40,7 @@ install:
 
 build: off
 build_script:
-  - pip install -e .
+  - pip install --no-deps -e .
 
 test: off
 test_script:
