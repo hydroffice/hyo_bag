@@ -44,6 +44,7 @@ For the BAG library, you will need:
 * ``numpy``
 * ``h5py``
 * ``lxml``
+* ``gdal`` *[<2.0]*
 * ``PyInstaller`` *[for freezing the tools]*
 
 For running some of the example scripts, you might also need:
@@ -56,4 +57,4 @@ Other info
 
 * Bitbucket: `https://bitbucket.org/ccomjhc/hyo_bag <https://bitbucket.org/ccomjhc/hyo_bag>`_
 * Project page: `http://www.hydroffice.org <http://www.hydroffice.org>`_
-* License: LGPLv3 license (See `LICENSE <https://bitbucket.org/ccomjhc/hyo_bag/raw/tip/LICENSE.txt>`_)
+* License: LGPLv3 license (See `LICENSE <https://bitbucket.org/ccomjhc/hyo_bag/raw/tip/LICENSE>`_)
