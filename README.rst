@@ -17,8 +17,8 @@ HydrOffice BAG
     :target: https://ci.appveyor.com/project/giumas/hyo-bag
     :alt: AppVeyor Status
 
-.. image:: https://travis-ci.org/giumas/hyo_bag.svg?branch=master
-    :target: https://travis-ci.org/giumas/hyo_bag
+.. image:: https://travis-ci.org/hydroffice/hyo_bag.svg?branch=master
+    :target: https://travis-ci.org/hydroffice/hyo_bag
     :alt: Travis-CI Status
 
 
