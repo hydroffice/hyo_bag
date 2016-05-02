@@ -14,7 +14,7 @@ from .base import is_bag
 from .bag import BAGFile
 
 
-__version__ = '0.2.11'
+__version__ = '0.2.12'
 __doc__ = 'BAG'
 __author__ = 'gmasetti@ccom.unh.edu, brc@ccom.unh.edu'
 __license__ = 'LGPLv3 license'
