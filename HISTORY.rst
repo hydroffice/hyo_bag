@@ -4,6 +4,10 @@ History
 0.2
 ~~~
 
+2016-05-27
+
+- Added option to read a slice of rows for elevation and uncertainty layers
+
 2016-03-21
 
 - Added option to reproject layers into user-defined EPSG

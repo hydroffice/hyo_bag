@@ -83,7 +83,8 @@ class File(h5py.File):
     def __repr__(self):
         if not self.id:
             log.info("closed file")
-            r = u('<Closed BAG file>')
+            r = u('<BAG file>\n')
+            r += "  <status: closed>"
         else:
             # Filename has to be forced to Unicode if it comes back bytes
             # Mode is always a "native" string
@@ -91,10 +92,11 @@ class File(h5py.File):
             if isinstance(filename, bytes):  # Can't decode fname
                 filename = filename.decode('utf8', 'replace')
             r = u('<BAG file "%s" (mode %s)>') % (os.path.basename(filename), self.mode)
-            r += "\n .id: %s" % self.id
-            r += "\n .name: %s" % self.name
-            r += "\n .driver: %s" % self.driver
-            r += "\n .user block size: %s" % self.userblock_size
+            r += "  <status: open>\n"
+            r += "  <id: %s>\n" % self.id
+            r += "  <name: %s>\n" % self.name
+            r += "  <driver: %s>\n" % self.driver
+            r += "  <user block size: %s>\n" % self.userblock_size
 
         if PY3:
             return r

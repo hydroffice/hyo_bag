@@ -16,42 +16,78 @@ from hydroffice.bag import BAGFile
 from hydroffice.bag import BAGError
 from hydroffice.bag.helper import Helper
 
+# Example that use bag.BAGFile to:
+# - open a BAG file
+# - read the whole elevation and uncertainty layers
+# - read a selected range of rows for the elevation and uncertainty layers
+
 file_bag_0 = os.path.join(Helper.samples_folder(), "bdb_00.bag")
 if os.path.exists(file_bag_0):
-    print("- file_bag_0: %s" % file_bag_0)
+    logger.debug("- file_bag_0: %s" % file_bag_0)
 
+# - open a file
 bag_0 = BAGFile(file_bag_0)
-print(bag_0)
+logger.debug("\n%s\n" % bag_0)
 
-print(type(bag_0.elevation(mask_nan=True)), bag_0.elevation(mask_nan=True).shape, bag_0.elevation(mask_nan=True).dtype)
-ax =plt.contourf(bag_0.elevation(mask_nan=True))
+# - get elevation shape
+logger.info("elevation shape: %s" % (bag_0.elevation_shape(), ))
+# - read the full elevation
+full_elevation = bag_0.elevation(mask_nan=True)
+logger.info("elevation array:\n  type: %s\n  shape: %s\n  dtype: %s"
+            % (type(full_elevation), full_elevation.shape, full_elevation.dtype))
+ax = plt.contourf(full_elevation)
+plt.colorbar(ax)
+plt.show()
+# - read the first 10 rows of the elevation layers
+selection_slice = slice(0, 10)
+sliced_elevation = bag_0.elevation(mask_nan=True, row_range=selection_slice)
+logger.info("sliced elevation array:\n  type: %s\n  shape: %s\n  dtype: %s"
+            % (type(sliced_elevation), sliced_elevation.shape, sliced_elevation.dtype))
+ax = plt.contourf(sliced_elevation)
 plt.colorbar(ax)
 plt.show()
 
-print(type(bag_0.uncertainty(mask_nan=True)), bag_0.uncertainty(mask_nan=True).shape, bag_0.uncertainty(mask_nan=True).dtype)
-plt.contourf(bag_0.uncertainty(mask_nan=True))
+# - get uncertainty shape
+logger.info("uncertainty shape: %s" % (bag_0.uncertainty_shape(), ))
+# - read the full uncertainty
+full_uncertainty = bag_0.uncertainty(mask_nan=True)
+logger.info("uncertainty array:\n  type: %s\n  shape: %s\n  dtype: %s"
+            % (type(full_uncertainty), full_uncertainty.shape, full_uncertainty.dtype))
+ax = plt.contourf(full_uncertainty)
+plt.colorbar(ax)
+plt.show()
+# - read the first 10 rows of the uncertainty layers
+selection_slice = slice(10, 20)
+sliced_uncertainty = bag_0.uncertainty(mask_nan=True, row_range=selection_slice)
+logger.info("sliced uncertainty array:\n  type: %s\n  shape: %s\n  dtype: %s"
+            % (type(sliced_uncertainty), sliced_uncertainty.shape, sliced_uncertainty.dtype))
+ax = plt.contourf(sliced_uncertainty)
+plt.colorbar(ax)
 plt.show()
 
-print(type(bag_0.tracking_list()), bag_0.tracking_list().shape, bag_0.tracking_list().dtype)
+# - tracking list
+logger.debug("\ntracking list:\n  type: %s\n  shape: %s\n  dtype: %s"
+             % (type(bag_0.tracking_list()), bag_0.tracking_list().shape, bag_0.tracking_list().dtype))
 
-print(type(bag_0.metadata()), len(bag_0.metadata()))
+# - metadata
+logger.debug("\nmetadata: %s %s\n" % (type(bag_0.metadata()), len(bag_0.metadata())))
 file_bag_0_xml = os.path.join("bdb_00.bag.xml")
 bag_0.extract_metadata(name=file_bag_0_xml)
 
 bag_0.populate_metadata()
-print("rows, cols: %d, %d" % (bag_0.meta.rows, bag_0.meta.cols))
-print("res x, y: %f, %f" % (bag_0.meta.res_x, bag_0.meta.res_y))
-print("corner SW, NE: %s, %s" % (bag_0.meta.sw, bag_0.meta.ne))
-print("coord sys: %s" % bag_0.meta.prj_coord_sys)
+logger.debug("rows, cols: %d, %d" % (bag_0.meta.rows, bag_0.meta.cols))
+logger.debug("res x, y: %f, %f" % (bag_0.meta.res_x, bag_0.meta.res_y))
+logger.debug("corner SW, NE: %s, %s" % (bag_0.meta.sw, bag_0.meta.ne))
+logger.debug("coord sys: %s" % bag_0.meta.wkt_srs)
 
-print(bag_0)
+logger.debug(bag_0)
 
 file_bag_1 = os.path.join(Helper.samples_folder(), "bdb_01.bag")
 if os.path.exists(file_bag_1):
-    print("- file_bag_1: %s" % file_bag_1)
+    logger.debug("file_bag_1: %s" % file_bag_1)
 
 file_bag_2 = os.path.abspath(os.path.join("test_00.bag"))
-print("- file_bag_2: %s" % file_bag_2)
+logger.debug("file_bag_2: %s" % file_bag_2)
 
 bag_2 = BAGFile.create_template(file_bag_2)
 bag_2.close()

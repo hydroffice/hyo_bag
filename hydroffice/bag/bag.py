@@ -82,35 +82,73 @@ class BAGFile(File):
 
         return new_bag
 
-    def elevation(self, mask_nan=True):
+    def elevation(self, mask_nan=True, row_range=None):
         """
         Return the elevation as numpy array
 
         mask_nan
             If True, apply a mask using the BAG nan value
+        row_range
+            If present, a slice of rows to read from
         """
+        if row_range:
+            if not isinstance(row_range, slice):
+                raise BAGError("Invalid type of slice selector: %s" % type(row_range))
+            if (row_range.start < 0) or (row_range.start >= self.elevation_shape()[0]) \
+                    or (row_range.stop < 0) or (row_range.stop > self.elevation_shape()[0]) \
+                    or (row_range.start > row_range.stop):
+                raise BAGError("Invalid values for slice selector: %s" % row_range)
+
         if mask_nan:
-            el = self[BAGFile._bag_elevation][:]
+            if row_range:
+                el = self[BAGFile._bag_elevation][row_range]
+            else:
+                el = self[BAGFile._bag_elevation][:]
             mask = el == BAGFile.BAG_NAN
             el[mask] = np.nan
             return el
 
-        return self[BAGFile._bag_elevation][:]
+        if slice:
+            return self[BAGFile._bag_elevation][row_range]
+        else:
+            return self[BAGFile._bag_elevation][:]
 
-    def uncertainty(self, mask_nan=True):
+    def elevation_shape(self):
+        return self[BAGFile._bag_elevation].shape
+
+    def uncertainty(self, mask_nan=True, row_range=None):
         """
         Return the uncertainty as numpy array
 
         mask_nan
             If True, apply a mask using the BAG nan value
+        row_range
+            If present, a slice of rows to read from
         """
-        if mask_nan:
-            el = self[BAGFile._bag_uncertainty][:]
-            mask = el == BAGFile.BAG_NAN
-            el[mask] = np.nan
-            return el
+        if row_range:
+            if not isinstance(row_range, slice):
+                raise BAGError("Invalid type of slice selector: %s" % type(row_range))
+            if (row_range.start < 0) or (row_range.start >= self.uncertainty_shape()[0]) \
+                    or (row_range.stop < 0) or (row_range.stop > self.uncertainty_shape()[0]) \
+                    or (row_range.start > row_range.stop):
+                raise BAGError("Invalid values for slice selector: %s" % row_range)
 
-        return self[BAGFile._bag_uncertainty][:]
+        if mask_nan:
+            if row_range:
+                un = self[BAGFile._bag_uncertainty][row_range]
+            else:
+                un = self[BAGFile._bag_uncertainty][:]
+            mask = un == BAGFile.BAG_NAN
+            un[mask] = np.nan
+            return un
+
+        if slice:
+            return self[BAGFile._bag_uncertainty][row_range]
+        else:
+            return self[BAGFile._bag_uncertainty][:]
+
+    def uncertainty_shape(self):
+        return self[BAGFile._bag_uncertainty].shape
 
     def tracking_list(self):
         """ Return the tracking list as numpy array """
@@ -230,7 +268,7 @@ class BAGFile(File):
             }
             for i in schematron.error_log:
                 err_tree = etree.fromstring(i.message)
-                #print(etree.tostring(err_tree, pretty_print=True))
+                # print(etree.tostring(err_tree, pretty_print=True))
                 err_msg = err_tree.xpath('/svrl:failed-assert/svrl:text', namespaces=ns)[0].text.strip()
                 log.warning(err_msg)
                 self.meta_errors.append(err_msg)
@@ -262,25 +300,25 @@ class BAGFile(File):
 
     def _str_group_info(self, grp):
         if grp == self._bag_root:
-            self._str += "\n <root>"
+            self._str += "  <root>\n"
         elif grp == self._bag_elevation:
-            self._str += "\n  <elevation shape=%s>" % str(self.elevation().shape)
+            self._str += "  <elevation shape=%s>\n" % str(self.elevation().shape)
         elif grp == self._bag_uncertainty:
-            self._str += "\n  <uncertainty shape=%s>" % str(self.uncertainty().shape)
+            self._str += "  <uncertainty shape=%s>\n" % str(self.uncertainty().shape)
         elif grp == self._bag_tracking_list:
-            self._str += "\n  <tracking list shape=%s>" % str(self.tracking_list().shape)
+            self._str += "  <tracking list shape=%s>\n" % str(self.tracking_list().shape)
         elif grp == self._bag_metadata:
             if self.meta is not None:
-                self._str += "\n  %s" % str(self.meta)
+                self._str += "  %s\n" % str(self.meta)
             else:
-                self._str += "\n  <%s>" % grp
+                self._str += "  <%s>\n" % grp
         else:
-            self._str += "\n  <%s>" % grp
+            self._str += "  <%s>\n" % grp
 
         if grp != self._bag_metadata:
             for atr in self[grp].attrs:
                 atr_val = self[grp].attrs[atr]
-                self._str += "\n   - %s: %s (%s, %s)" % (atr, atr_val, atr_val.shape, atr_val.dtype)
+                self._str += "    <%s: %s (%s, %s)>\n" % (atr, atr_val, atr_val.shape, atr_val.dtype)
 
     def __str__(self):
         self._str = super(BAGFile, self).__str__()
