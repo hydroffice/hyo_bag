@@ -3,11 +3,12 @@ from __future__ import absolute_import, division, print_function  # , unicode_li
 import os
 import sys
 import logging
+
 import numpy as np
 import h5py
 from lxml import etree
 
-log = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 from .base import is_bag, File
 from .helper import BAGError, Helper
@@ -58,7 +59,7 @@ class BAGFile(File):
     @classmethod
     def create_template(cls, name):
         """ create a BAG file with empty template structure """
-        log.debug("create new BAG file: %s" % name)
+        logger.debug("create new BAG file: %s" % name)
         try:
             new_bag = File(name, 'w')
             new_bag.create_group(cls._bag_root)
@@ -170,14 +171,14 @@ class BAGFile(File):
             try:
                 return self[BAGFile._bag_metadata][:].tostring()
             except RuntimeError as e:
-                log.info("exception raised: %s" % e)
+                logger.info("exception raised: %s" % e)
                 return None
         if as_pretty_xml:
             try:
                 xml_tree = etree.fromstring(self[BAGFile._bag_metadata][:].tostring())
                 return etree.tostring(xml_tree, pretty_print=True)
             except RuntimeError as e:
-                log.info("exception raised: %s" % e)
+                logger.info("exception raised: %s" % e)
                 return None
 
         return self[BAGFile._bag_metadata][:]
@@ -191,7 +192,7 @@ class BAGFile(File):
 
         meta_xml = self.metadata(as_pretty_xml=True)
         if meta_xml is None:
-            log.info("unable to access the metadata")
+            logger.info("unable to access the metadata")
             return
 
         if name is None:
@@ -210,7 +211,7 @@ class BAGFile(File):
         try:
             xml_tree = etree.fromstring(self.metadata(as_pretty_xml=True))
         except etree.Error as e:
-            log.warning("unabled to parse XML metadata: %s" % e)
+            logger.warning("unabled to parse XML metadata: %s" % e)
             self.meta_errors.append(e.message)
             return False
 
@@ -219,27 +220,27 @@ class BAGFile(File):
             schema_doc = etree.parse(schema_path)
             schema = etree.XMLSchema(schema_doc)
         except etree.Error as e:
-            log.warning("unabled to parse XML schema: %s" % e)
+            logger.warning("unabled to parse XML schema: %s" % e)
             self.meta_errors.append(e.message)
             return False
 
         try:
             schema.assertValid(xml_tree)
         except etree.DocumentInvalid as e:
-            log.warning("invalid metadata based on XML schema: %s" % e)
+            logger.warning("invalid metadata based on XML schema: %s" % e)
             self.meta_errors.append(e.message)
             for i in schema.error_log:
                 self.meta_errors.append(i)
             is_valid = False
 
         if is_valid:
-            log.debug("xsd validated")
+            logger.debug("xsd validated")
 
         try:
             schematron_path = os.path.join(Helper.iso19757_3_folder(), 'bag_metadata_profile.sch')
             schematron_doc = etree.parse(schematron_path)
         except etree.DocumentInvalid as e:
-            log.warning("unabled to parse BAG schematron: %s" % e)
+            logger.warning("unabled to parse BAG schematron: %s" % e)
             self.meta_errors.append(e.message)
             return False
 
@@ -247,21 +248,21 @@ class BAGFile(File):
             from lxml import isoschematron
         except IOError as e:
             msg = "Unable to load lxml isoschematron files"
-            log.warning("%s: %s" % (msg, e))
+            logger.warning("%s: %s" % (msg, e))
             self.meta_errors.append(e.message)
             return False
 
         try:
             schematron = isoschematron.Schematron(schematron_doc, store_report=True)
         except etree.DocumentInvalid as e:
-            log.warning("unabled to load BAG schematron: %s" % e)
+            logger.warning("unabled to load BAG schematron: %s" % e)
             self.meta_errors.append(e.message)
             return False
 
         if schematron.validate(xml_tree):
-            log.debug("schematron validated")
+            logger.debug("schematron validated")
         else:
-            log.warning("invalid metadata based on Schematron")
+            logger.warning("invalid metadata based on Schematron")
             is_valid = False
             ns = {
                 'svrl': 'http://purl.oclc.org/dsdl/svrl',
@@ -270,7 +271,7 @@ class BAGFile(File):
                 err_tree = etree.fromstring(i.message)
                 # print(etree.tostring(err_tree, pretty_print=True))
                 err_msg = err_tree.xpath('/svrl:failed-assert/svrl:text', namespaces=ns)[0].text.strip()
-                log.warning(err_msg)
+                logger.warning(err_msg)
                 self.meta_errors.append(err_msg)
 
         return is_valid
