@@ -25,6 +25,8 @@ bag = BAGFile(bag_file)
 bag_meta = bag.populate_metadata()
 print(bag_meta)
 
+print("has elevation? %s" % bag.has_elevation())
+
 bag_elevation = bag.elevation(mask_nan=False)
 print(type(bag.elevation()), bag.elevation().shape, bag.elevation().dtype)
 

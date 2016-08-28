@@ -32,6 +32,8 @@ class BAGFile(File):
     _bag_uncertainty = "BAG_root/uncertainty"
     _bag_uncertainty_min_uv = "Minimum Uncertainty Value"
     _bag_uncertainty_max_uv = "Maximum Uncertainty Value"
+    _bag_leidos_density = "BAG_root/elevation_solution"
+
     BAG_NAN = 1000000
 
     default_metadata_file = "BAG_metadata.xml"
@@ -82,6 +84,9 @@ class BAGFile(File):
 
         return new_bag
 
+    def has_elevation(self):
+        return BAGFile._bag_elevation in self
+
     def elevation(self, mask_nan=True, row_range=None):
         """
         Return the elevation as numpy array
@@ -108,13 +113,16 @@ class BAGFile(File):
             el[mask] = np.nan
             return el
 
-        if slice:
+        if row_range:
             return self[BAGFile._bag_elevation][row_range]
         else:
             return self[BAGFile._bag_elevation][:]
 
     def elevation_shape(self):
         return self[BAGFile._bag_elevation].shape
+
+    def has_uncertainty(self):
+        return BAGFile._bag_uncertainty in self
 
     def uncertainty(self, mask_nan=True, row_range=None):
         """
@@ -142,13 +150,53 @@ class BAGFile(File):
             un[mask] = np.nan
             return un
 
-        if slice:
+        if row_range:
             return self[BAGFile._bag_uncertainty][row_range]
         else:
             return self[BAGFile._bag_uncertainty][:]
 
     def uncertainty_shape(self):
         return self[BAGFile._bag_uncertainty].shape
+
+    def has_leidos_density(self):
+        return BAGFile._bag_leidos_density in self
+
+    def leidos_density(self, mask_nan=True, row_range=None):
+        """
+        Return the Leidos density as numpy array
+
+        mask_nan
+            If True, apply a mask using the BAG nan value
+        row_range
+            If present, a slice of rows to read from
+        """
+        if row_range:
+            if not isinstance(row_range, slice):
+                raise BAGError("Invalid type of slice selector: %s" % type(row_range))
+            if (row_range.start < 0) or (row_range.start >= self.leidos_density_shape()[0]) \
+                    or (row_range.stop < 0) or (row_range.stop > self.leidos_density_shape()[0]) \
+                    or (row_range.start > row_range.stop):
+                raise BAGError("Invalid values for slice selector: %s" % row_range)
+
+        if mask_nan:
+            if row_range:
+                de = self[BAGFile._bag_leidos_density]['num_soundings'][row_range]
+            else:
+                de = self[BAGFile._bag_leidos_density]['num_soundings'][:]
+            de = de.astype(float)
+            mask = de == BAGFile.BAG_NAN
+            de[mask] = np.nan
+            return de
+
+        if row_range:
+            de = self[BAGFile._bag_leidos_density]['num_soundings'][row_range]
+        else:
+            de = self[BAGFile._bag_leidos_density]['num_soundings'][:]
+        de = de.astype(float)
+        return de
+
+    def leidos_density_shape(self):
+        return self[BAGFile._bag_leidos_density].shape
 
     def tracking_list(self):
         """ Return the tracking list as numpy array """
