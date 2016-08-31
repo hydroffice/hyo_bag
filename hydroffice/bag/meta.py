@@ -61,6 +61,10 @@ class Meta(object):
         self.date = None
         self._read_date()
 
+        # uncertainty type
+        self.unc_type = None
+        self._read_uncertainty_type()
+
     def __str__(self):
         output = "<metadata>"
 
@@ -87,6 +91,9 @@ class Meta(object):
             output += "\n        <x min=%s, max=%s>" % (self.lon_min, self.lon_max)
         if (self.lat_min is not None) and (self.lat_max is not None):
             output += "\n        <y min=%s, max=%s>" % (self.lat_min, self.lat_max)
+
+        if self.unc_type is not None:
+            output += "\n    <uncertainty type=%s>" % self.unc_type
 
         return output
 
@@ -257,3 +264,19 @@ class Meta(object):
             self.date = text_date
         else:
             self.date = tm_date
+
+    def _read_uncertainty_type(self):
+        """ attempts to read the uncertainty type """
+
+        try:
+            ret = self.xml_tree.xpath('//*/bag:verticalUncertaintyType/bag:BAG_VertUncertCode/@codeListValue',
+                                      namespaces=self.ns)
+        except etree.Error as e:
+            log.warning("unable to read the uncertainty type string: %s" % e)
+            return
+
+        try:
+            self.unc_type = ret[0]
+        except (ValueError, IndexError) as e:
+            log.warning("unable to read the uncertainty type attribute: %s" % e)
+            return

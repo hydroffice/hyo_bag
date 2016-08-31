@@ -26,6 +26,7 @@ bag_meta = bag.populate_metadata()
 print(bag_meta)
 
 print("has uncertainty? %s" % bag.has_uncertainty())
+print("has product uncertainty? %s" % bag.has_product_uncertainty())
 
 bag_uncertainty = bag.uncertainty(mask_nan=True)
 print(type(bag.elevation(mask_nan=True)), bag.elevation(mask_nan=True).shape, bag.elevation(mask_nan=True).dtype)

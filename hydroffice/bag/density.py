@@ -16,7 +16,7 @@ from .bag import BAGFile
 gdal.UseExceptions()
 
 
-class LeidosDensity2Gdal(object):
+class Density2Gdal(object):
 
     formats = {
         'ascii': [b"AAIGrid", "bag.leidos.density.asc"],
@@ -24,11 +24,11 @@ class LeidosDensity2Gdal(object):
         'xyz': [b"XYZ", "bag.leidos.density.xyz"],
     }
 
-    def __init__(self, bag_leidos_density, bag_meta, fmt="geotiff", out_file=None, epsg=None):
+    def __init__(self, bag_density, bag_meta, fmt="geotiff", out_file=None, epsg=None):
         """Export the elevation layer in one of the listed formats"""
-        assert isinstance(bag_leidos_density, np.ndarray)
+        assert isinstance(bag_density, np.ndarray)
         assert isinstance(bag_meta, Meta)
-        self.bag_den = bag_leidos_density
+        self.bag_den = bag_density
         self.bag_meta = bag_meta
 
         # get the IN-MEMORY ogr driver
