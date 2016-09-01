@@ -357,6 +357,92 @@ class BAGFile(File):
         self.meta = Meta(meta_xml=self.metadata(as_pretty_xml=True))
         return self.meta
 
+    def modify_wkt_prj(self, wkt_hor, wkt_ver=None):
+        """ Modify the wkt prj in the metadata content
+
+        text
+            The new wkt prj text to use
+        """
+        ns = {
+            'bag': 'http://www.opennavsurf.org/schema/bag',
+            'gco': 'http://www.isotc211.org/2005/gco',
+            'gmd': 'http://www.isotc211.org/2005/gmd',
+            'gmi': 'http://www.isotc211.org/2005/gmi',
+            'gml': 'http://www.opengis.net/gml/3.2',
+            'xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+        }
+
+        xml_tree = etree.fromstring(self[BAGFile._bag_metadata][:].tostring())
+
+        try:
+            ret = xml_tree.xpath('//*/gmd:referenceSystemInfo/gmd:MD_ReferenceSystem/'
+                                 'gmd:referenceSystemIdentifier/gmd:RS_Identifier/gmd:code/gco:CharacterString',
+                                 namespaces=ns)
+            ret[0].text = wkt_hor
+            if wkt_ver is not None:
+                ret[1].text = wkt_ver
+
+        except etree.Error as e:
+            logger.warning("unable to read the WKT projection string: %s" % e)
+            return
+
+        new_xml = etree.tostring(xml_tree, pretty_print=True)  # .encode('utf-8')
+        del self[BAGFile._bag_metadata]
+        ds = self.create_dataset(BAGFile._bag_metadata, shape=(len(new_xml), ), dtype="S1")
+        for i, x in enumerate(new_xml):
+            ds[i] = x
+
+    def modify_bbox(self, west, east, south, north):
+        """ attempts to modify the bounding box values """
+        ns = {
+            'bag': 'http://www.opennavsurf.org/schema/bag',
+            'gco': 'http://www.isotc211.org/2005/gco',
+            'gmd': 'http://www.isotc211.org/2005/gmd',
+            'gmi': 'http://www.isotc211.org/2005/gmi',
+            'gml': 'http://www.opengis.net/gml/3.2',
+            'xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+        }
+
+        xml_tree = etree.fromstring(self[BAGFile._bag_metadata][:].tostring())
+
+        try:
+            ret_x_min = xml_tree.xpath('//*/gmd:EX_GeographicBoundingBox/gmd:westBoundLongitude/gco:Decimal',
+                                       namespaces=ns)
+            ret_x_max = xml_tree.xpath('//*/gmd:EX_GeographicBoundingBox/gmd:eastBoundLongitude/gco:Decimal',
+                                       namespaces=ns)
+        except etree.Error as e:
+            logger.warning("unable to read the bbox's longitude values: %s" % e)
+            return
+
+        try:
+            ret_x_min[0].text = "%s" % west
+            ret_x_max[0].text = "%s" % east
+        except (ValueError, IndexError) as e:
+            logger.warning("unable to read the bbox's longitude values: %s" % e)
+            return
+
+        try:
+            ret_y_min = xml_tree.xpath('//*/gmd:EX_GeographicBoundingBox/gmd:southBoundLatitude/gco:Decimal',
+                                       namespaces=ns)
+            ret_y_max = xml_tree.xpath('//*/gmd:EX_GeographicBoundingBox/gmd:northBoundLatitude/gco:Decimal',
+                                       namespaces=ns)
+        except etree.Error as e:
+            logger.warning("unable to read the bbox's latitude values: %s" % e)
+            return
+
+        try:
+            ret_y_min[0].text = "%s" % south
+            ret_y_max[0].text = "%s" % north
+        except (ValueError, IndexError) as e:
+            logger.warning("unable to read the bbox's latitude values: %s" % e)
+            return
+
+        new_xml = etree.tostring(xml_tree, pretty_print=True)  # .encode('utf-8')
+        del self[BAGFile._bag_metadata]
+        ds = self.create_dataset(BAGFile._bag_metadata, shape=(len(new_xml),), dtype="S1")
+        for i, x in enumerate(new_xml):
+            ds[i] = x
+
     def _str_group_info(self, grp):
         if grp == self._bag_root:
             self._str += "  <root>\n"
