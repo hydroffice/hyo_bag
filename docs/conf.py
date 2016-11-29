@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 
 import sys
@@ -6,23 +5,9 @@ import os
 
 this = os.path.dirname(os.path.abspath(__file__))
 
-
-
-
-
-
-
-
-
-
-
-
-
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-
-
 
 sys.path.insert(0, os.path.join(this, os.pardir))
 
@@ -38,7 +23,7 @@ sys.path.insert(0, os.path.join(this, os.pardir))
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.coverage',
-    'sphinx.ext.pngmath',
+    'sphinx.ext.imgmath',
     'sphinx.ext.viewcode',
     'sphinx.ext.coverage',
     'sphinx.ext.intersphinx',
@@ -48,8 +33,6 @@ extensions = [
 templates_path = ['_templates']
 
 # The suffix of source filenames.
-
-
 
 source_suffix = '.rst'
 
