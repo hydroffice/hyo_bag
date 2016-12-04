@@ -61,8 +61,8 @@ after_script:
       python setup.py bdist_wheel;
     fi
 
-addons:
-  artifacts:
-    debug: true
-    paths:
-    - ./dist
+#addons:
+#  artifacts:
+#    debug: true
+#    paths:
+#    - ./dist
