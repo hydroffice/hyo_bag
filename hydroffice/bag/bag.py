@@ -259,15 +259,44 @@ class BAGFile(File):
         with open(os.path.abspath(name), 'w') as fid:
             fid.write(meta_xml)
 
-    def validate_metadata(self):
+    def substitute_metadata(self, path):
+        """ Substitute internal metadata
+
+        name
+            The file path where the new metadata are.
+        """
+
+        path = os.path.abspath(path)
+        if not os.path.exists(path):
+            logger.info("the passed file does not exist")
+            return
+
+        with open(path, 'r') as fid:
+            xml_string = str.encode(fid.read())
+
+        is_valid = self.validate_metadata(xml_string)
+        if not is_valid:
+            logger.info("the passed medatadata file is not valid")
+            return
+
+        del self[BAGFile._bag_metadata]
+        xml_sz = len(xml_string)
+        self.create_dataset(self._bag_metadata, (xml_sz, ), dtype="S1")
+        for i, bt in enumerate(xml_string):
+            self[BAGFile._bag_metadata][i] = bt
+
+    def validate_metadata(self, xml_string=None):
         """ Validate metadata based on XML Schemas and schematron. """
         # clean metadata error list
         self.meta_errors = list()
         # assuming a valid BAG
         is_valid = True
 
+        if xml_string is None:
+            xml_string = self.metadata(as_pretty_xml=True)
+
         try:
-            xml_tree = etree.fromstring(self.metadata(as_pretty_xml=True))
+            xml_tree = etree.fromstring(xml_string)
         except etree.Error as e:
             logger.warning("unabled to parse XML metadata: %s" % e)
             self.meta_errors.append(e.message)
