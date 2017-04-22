@@ -1,8 +1,8 @@
 HydrOffice BAG
 ==============
 
-.. image:: https://img.shields.io/pypi/v/hydroffice.bag.svg
-    :target: https://pypi.python.org/pypi/hydroffice.bag
+.. image:: https://img.shields.io/pypi/v/hyo.bag.svg
+    :target: https://pypi.python.org/pypi/hyo.bag
     :alt: PyPi version
 
 .. image:: https://img.shields.io/badge/docs-latest-brightgreen.svg
