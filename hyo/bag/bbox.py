@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import os
 import logging
 
@@ -16,10 +14,10 @@ ogr.UseExceptions()
 class Bbox2Gdal(object):
 
     formats = {
-        'gjs': [b"GeoJSON", "bag.geojson"],
-        'gml': [b"GML", "bag.gml"],
-        'kml': [b"KML", "bag.kml"],
-        'shp': [b"ESRI Shapefile", "bag.shp"],
+        'gjs': ["GeoJSON", "bag.geojson"],
+        'gml': ["GML", "bag.gml"],
+        'kml': ["KML", "bag.kml"],
+        'shp': ["ESRI Shapefile", "bag.shp"],
     }
 
     def __init__(self, bag_meta, fmt="kml", title=None, out_file=None):
@@ -55,7 +53,7 @@ class Bbox2Gdal(object):
         self.srs.ImportFromEPSG(4326)
 
         # create the layer
-        self.lyr = ds.CreateLayer(b"BAG", self.srs, ogr.wkbLineString25D)
+        self.lyr = ds.CreateLayer("BAG", self.srs, ogr.wkbLineString25D)
         self._define_layer_fields()
 
         # add feature
@@ -66,54 +64,53 @@ class Bbox2Gdal(object):
     def _define_layer_fields(self):
 
         # Add the fields we're interested in
-        self.lyr.CreateField(ogr.FieldDefn(b"Name", ogr.OFTString))
+        self.lyr.CreateField(ogr.FieldDefn("Name", ogr.OFTString))
         if self.bag_meta.rows is not None:
-            self.lyr.CreateField(ogr.FieldDefn(b"Rows", ogr.OFTInteger))
+            self.lyr.CreateField(ogr.FieldDefn("Rows", ogr.OFTInteger))
         if self.bag_meta.cols is not None:
-            self.lyr.CreateField(ogr.FieldDefn(b"Cols", ogr.OFTInteger))
+            self.lyr.CreateField(ogr.FieldDefn("Cols", ogr.OFTInteger))
         if self.bag_meta.ne is not None:
-            self.lyr.CreateField(ogr.FieldDefn(b"NE", ogr.OFTString))
+            self.lyr.CreateField(ogr.FieldDefn("NE", ogr.OFTString))
         if self.bag_meta.sw is not None:
-            self.lyr.CreateField(ogr.FieldDefn(b"SW", ogr.OFTString))
+            self.lyr.CreateField(ogr.FieldDefn("SW", ogr.OFTString))
         if self.bag_meta.res_x is not None:
-            self.lyr.CreateField(ogr.FieldDefn(b"ResX", ogr.OFTReal))
+            self.lyr.CreateField(ogr.FieldDefn("ResX", ogr.OFTReal))
         if self.bag_meta.res_y is not None:
-            self.lyr.CreateField(ogr.FieldDefn(b"ResY", ogr.OFTReal))
+            self.lyr.CreateField(ogr.FieldDefn("ResY", ogr.OFTReal))
         if self.bag_meta.abstract is not None:
-            self.lyr.CreateField(ogr.FieldDefn(b"Abstract", ogr.OFTString))
+            self.lyr.CreateField(ogr.FieldDefn("Abstract", ogr.OFTString))
         if self.bag_meta.date is not None:
-            self.lyr.CreateField(ogr.FieldDefn(b"Date", ogr.OFTString))
+            self.lyr.CreateField(ogr.FieldDefn("Date", ogr.OFTString))
         if self.bag_meta.wkt_srs is not None:
-            self.lyr.CreateField(ogr.FieldDefn(b"SRS", ogr.OFTString))
-        self.lyr.CreateField(ogr.FieldDefn(b"Tools", ogr.OFTString))
+            self.lyr.CreateField(ogr.FieldDefn("SRS", ogr.OFTString))
+        self.lyr.CreateField(ogr.FieldDefn("Tools", ogr.OFTString))
 
     def _add_feature(self):
         # create the WKT for the feature using Python string formatting
         feature = ogr.Feature(self.lyr.GetLayerDefn())
-        feature.SetField(b"Name", self.title.encode())
+        feature.SetField("Name", self.title)
         if self.bag_meta.rows is not None:
-            feature.SetField(b"Rows", self.bag_meta.rows)
+            feature.SetField("Rows", self.bag_meta.rows)
         if self.bag_meta.cols is not None:
-            feature.SetField(b"Cols", self.bag_meta.cols)
+            feature.SetField("Cols", self.bag_meta.cols)
         if self.bag_meta.ne is not None:
-            feature.SetField(b"NE", ("%s" % self.bag_meta.ne).encode())
+            feature.SetField("NE", ("%s" % self.bag_meta.ne))
         if self.bag_meta.sw is not None:
-            feature.SetField(b"SW", ("%s" % self.bag_meta.sw).encode())
+            feature.SetField("SW", ("%s" % self.bag_meta.sw))
         if self.bag_meta.res_x is not None:
-            feature.SetField(b"ResX", ("%s" % self.bag_meta.res_x).encode())
+            feature.SetField("ResX", ("%s" % self.bag_meta.res_x))
         if self.bag_meta.res_y is not None:
-            feature.SetField(b"ResY", ("%s" % self.bag_meta.res_y).encode())
+            feature.SetField("ResY", ("%s" % self.bag_meta.res_y))
         if self.bag_meta.abstract is not None:
-            feature.SetField(b"Abstract", self.bag_meta.abstract)
+            feature.SetField("Abstract", self.bag_meta.abstract)
         if self.bag_meta.date is not None:
-            feature.SetField(b"Date", self.bag_meta.date)
+            feature.SetField("Date", self.bag_meta.date)
         if self.bag_meta.wkt_srs is not None:
-            feature.SetField(b"SRS", Helper.elide(self.bag_meta.wkt_srs, max_len=60).encode())
-        feature.SetField(b"Tools", ("r%s" % __version__).encode())
+            feature.SetField("SRS", Helper.elide(self.bag_meta.wkt_srs, max_len=60))
+        feature.SetField("Tools", ("r%s" % __version__))
         wkt = self.bag_meta.wkt_bbox()
         # log.debug("bbox: %s" % wkt)
         point = ogr.CreateGeometryFromWkt(wkt)
         feature.SetGeometry(point)
         self.lyr.CreateFeature(feature)
         feature.Destroy()
-

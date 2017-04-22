@@ -15,7 +15,7 @@ Installation:
 * Download 64-bit Python 2.7 miniconda: http://conda.pydata.org/miniconda.html
 * Install it from terminal: ``bash Miniconda-latest-Linux-x86_64.sh``
 * Install dependencies using conda (since with pip they may fail): ``conda install numpy matplotlib gdal lxml spyder``
-* Finally use pip for hydroffice.bag: ``pip install hydroffice.bag``
+* Finally use pip for hyo.bag: ``pip install hyo.bag``
 
 
 Test:

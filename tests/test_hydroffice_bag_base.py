@@ -1,17 +1,15 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import unittest
 import os
 
-from hydroffice.bag.helper import Helper, BAGError
-from hydroffice.bag.base import is_bag, File
+from hyo.bag.helper import Helper, BAGError
+from hyo.bag.base import is_bag, File
 
 
 class TestBagBase(unittest.TestCase):
 
     def setUp(self):
-        self.file_bag_0 = os.path.join(Helper.samples_folder(), "bdb_00.bag")
-        self.file_bag_1 = os.path.join(Helper.samples_folder(), "bdb_01.bag")
+        self.file_bag_0 = os.path.join(Helper.samples_folder(), "bdb_01.bag")
+        self.file_bag_1 = os.path.join(Helper.samples_folder(), "bdb_02.bag")
         self.file_fake_0 = os.path.join(Helper.samples_folder(), "fake_00.bag")
 
     def tearDown(self):

@@ -1,8 +1,5 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import os
 import logging
-from matplotlib import pyplot as plt
 
 logger = logging.getLogger()
 logger.setLevel(logging.NOTSET)
@@ -12,11 +9,11 @@ ch_formatter = logging.Formatter('%(levelname)-9s %(name)s.%(funcName)s:%(lineno
 ch.setFormatter(ch_formatter)
 logger.addHandler(ch)
 
-from hydroffice.bag import BAGFile
-from hydroffice.bag import BAGError
-from hydroffice.bag.helper import Helper
+from hyo.bag import BAGFile
+from hyo.bag import BAGError
+from hyo.bag.helper import Helper
 
-bag_file = os.path.join(Helper.samples_folder(), "bdb_00.bag")
+bag_file = os.path.join(Helper.samples_folder(), "bdb_01.bag")
 if os.path.exists(bag_file):
     print("- file_bag_0: %s" % bag_file)
 
@@ -28,7 +25,7 @@ print(bag_meta)
 bag_elevation = bag.elevation(mask_nan=False)
 print(type(bag.elevation()), bag.elevation().shape, bag.elevation().dtype)
 
-from hydroffice.bag.elevation import Elevation2Gdal
+from hyo.bag.elevation import Elevation2Gdal
 Elevation2Gdal(bag_elevation=bag_elevation, bag_meta=bag_meta, fmt="ascii", epsg=4326)
 Elevation2Gdal(bag_elevation=bag_elevation, bag_meta=bag_meta, fmt="geotiff", epsg=4326)
 Elevation2Gdal(bag_elevation=bag_elevation, bag_meta=bag_meta, fmt="xyz", epsg=4326)

@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import os
 import logging
 
@@ -10,10 +8,10 @@ def main():
 
 
     import argparse
-    from hydroffice.bag import BAGFile, is_bag, __version__
+    from hyo.bag import BAGFile, is_bag, __version__
 
-    app_name = "bag_uncertainty"
-    app_info = "Extraction of uncertainty layer from an OpenNS BAG file, using hydroffice.bag r%s" % __version__
+    app_name = "bag_elevation"
+    app_info = "Extraction of elevation layer from an OpenNS BAG file, using hyo.bag r%s" % __version__
 
     formats = ['ascii', 'geotiff', 'xyz']
 
@@ -57,15 +55,15 @@ def main():
         bag_meta = bf.populate_metadata()
     except Exception as e:
         parser.exit(1, "ERROR: issue in metadata population: %s" % e)
-    bag_uncertainty = None
+    bag_elevation = None
     try:
-        bag_uncertainty = bf.uncertainty(mask_nan=False)
+        bag_elevation = bf.elevation(mask_nan=False)
     except Exception as e:
-        parser.exit(1, "ERROR: issue in uncertainty population: %s" % e)
+        parser.exit(1, "ERROR: issue in elevation population: %s" % e)
 
     try:
-        from hydroffice.bag.uncertainty import Uncertainty2Gdal
-        Uncertainty2Gdal(bag_uncertainty=bag_uncertainty, bag_meta=bag_meta, fmt=args.format, out_file=args.output)
+        from hyo.bag.elevation import Elevation2Gdal
+        Elevation2Gdal(bag_elevation=bag_elevation, bag_meta=bag_meta, fmt=args.format, out_file=args.output)
     except Exception as e:
         parser.exit(1, "ERROR: issue in output creation: %s" % e)
 
@@ -74,5 +72,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-

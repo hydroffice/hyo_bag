@@ -1,9 +1,7 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import unittest
 import os
 
-from hydroffice.bag.bag import BAGFile
+from hyo.bag.bag import BAGFile
 
 
 class TestBAGFile(unittest.TestCase):

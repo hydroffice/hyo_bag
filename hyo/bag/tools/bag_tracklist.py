@@ -1,7 +1,6 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import os
 import logging
+
 
 def main():
     logger = logging.getLogger()
@@ -9,18 +8,19 @@ def main():
 
 
     import argparse
-    from hydroffice.bag import BAGFile, is_bag, __version__
+    from hyo.bag import BAGFile, is_bag, __version__
 
-    app_name = "bag_bbox"
-    app_info = "Extraction of bounding box from an OpenNS BAG file, using hydroffice.bag r%s" % __version__
+    app_name = "bag_tracklist"
+    app_info = "Extraction the tracklist from an OpenNS BAG file, using hyo.bag r%s" % __version__
 
-    formats = ['gjs', 'gml', 'kml', 'shp']
+    formats = ['csv']
 
     parser = argparse.ArgumentParser(prog=app_name, description=app_info)
     parser.add_argument("bag_file", type=str, help="a valid BAG file from which to extract metadata")
     parser.add_argument("-f", "--format", help="one of the available file format: " + ", ".join(formats),
-                        choices=formats, default="kml", metavar='')
+                        choices=formats, default="csv", metavar='')
     parser.add_argument("-o", "--output", help="the output file", type=str)
+    parser.add_argument("-hd", "--header", help="add an header", action="store_true")
     parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
     args = parser.parse_args()
 
@@ -43,6 +43,7 @@ def main():
             print("> output: [default]")
 
         print("> format: %s" % args.format)
+        print("> header: %s" % args.header)
 
     if not os.path.exists(args.bag_file):
         parser.exit(1, "ERROR: the input valid does not exist: %s" % args.bag_file)
@@ -51,14 +52,22 @@ def main():
         parser.exit(1, "ERROR: the input valid does not seem a BAG file: %s" % args.bag_file)
 
     bf = BAGFile(args.bag_file)
+    tl = None
     try:
-        bag_meta = bf.populate_metadata()
+        tl = bf.tracking_list()
     except Exception as e:
-        parser.exit(1, "ERROR: issue in metadata population: %s" % e)
+        parser.exit(1, "ERROR: issue in tracking-list recovery: %s" % e)
+
+    tlf = ""
+    if args.header:
+        try:
+            tlf = bf.tracking_list_fields()
+        except Exception as e:
+            parser.exit(1, "ERROR: issue in tracking-list fields recovery: %s" % e)
 
     try:
-        from hydroffice.bag.bbox import Bbox2Gdal
-        Bbox2Gdal(bag_meta, fmt=args.format, title=os.path.basename(args.bag_file), out_file=args.output)
+        from hyo.bag.tracklist import TrackList2Csv
+        TrackList2Csv(track_list=tl, csv_file=args.output, header=tlf)
     except Exception as e:
         parser.exit(1, "ERROR: issue in output creation: %s" % e)
 

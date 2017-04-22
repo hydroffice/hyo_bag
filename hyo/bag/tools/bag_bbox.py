@@ -1,8 +1,5 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import os
 import logging
-
 
 def main():
     logger = logging.getLogger()
@@ -10,14 +7,18 @@ def main():
 
 
     import argparse
-    from hydroffice.bag import BAGFile, is_bag, __version__
+    from hyo.bag import BAGFile, is_bag, __version__
 
-    app_name = "bag_metadata"
-    app_info = "Extraction of XML metadata from an OpenNS BAG file, using hydroffice.bag r%s" % __version__
+    app_name = "bag_bbox"
+    app_info = "Extraction of bounding box from an OpenNS BAG file, using hyo.bag r%s" % __version__
+
+    formats = ['gjs', 'gml', 'kml', 'shp']
 
     parser = argparse.ArgumentParser(prog=app_name, description=app_info)
     parser.add_argument("bag_file", type=str, help="a valid BAG file from which to extract metadata")
-    parser.add_argument("-x", "--xml_file", help="the output XML metadata file", type=str)
+    parser.add_argument("-f", "--format", help="one of the available file format: " + ", ".join(formats),
+                        choices=formats, default="kml", metavar='')
+    parser.add_argument("-o", "--output", help="the output file", type=str)
     parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
     args = parser.parse_args()
 
@@ -32,12 +33,14 @@ def main():
     if args.verbose:
         print("> input: %s" % args.bag_file)
 
-        if args.xml_file:
-            args.xml_file = os.path.abspath(args.xml_file)
-            print("> output: %s" % args.xml_file)
+        if args.output:
+            args.output = os.path.abspath(args.output)
+            print("> output: %s" % args.output)
         else:
-            args.xml_file = os.path.abspath(BAGFile.default_metadata_file)
-            print("> output: %s [default]" % args.xml_file)
+            args.output = None
+            print("> output: [default]")
+
+        print("> format: %s" % args.format)
 
     if not os.path.exists(args.bag_file):
         parser.exit(1, "ERROR: the input valid does not exist: %s" % args.bag_file)
@@ -47,9 +50,15 @@ def main():
 
     bf = BAGFile(args.bag_file)
     try:
-        bf.extract_metadata(args.xml_file)
+        bag_meta = bf.populate_metadata()
     except Exception as e:
-        parser.exit(1, "ERROR: %s" % e)
+        parser.exit(1, "ERROR: issue in metadata population: %s" % e)
+
+    try:
+        from hyo.bag.bbox import Bbox2Gdal
+        Bbox2Gdal(bag_meta, fmt=args.format, title=os.path.basename(args.bag_file), out_file=args.output)
+    except Exception as e:
+        parser.exit(1, "ERROR: issue in output creation: %s" % e)
 
     if args.verbose:
         print("> DONE")

@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import os
 import logging
 from matplotlib import pyplot as plt
@@ -12,12 +10,12 @@ ch_formatter = logging.Formatter('%(levelname)-9s %(name)s.%(funcName)s:%(lineno
 ch.setFormatter(ch_formatter)
 logger.addHandler(ch)
 
-from hydroffice.bag import BAGFile
-from hydroffice.bag import BAGError
-from hydroffice.bag.helper import Helper
-from hydroffice.bag.tracklist import TrackList2Csv
+from hyo.bag import BAGFile
+from hyo.bag import BAGError
+from hyo.bag.helper import Helper
+from hyo.bag.tracklist import TrackList2Csv
 
-bag_file = os.path.join(Helper.samples_folder(), "bdb_00.bag")
+bag_file = os.path.join(Helper.samples_folder(), "bdb_01.bag")
 bag = BAGFile(bag_file)
 tl = bag.tracking_list()
 tl2csv = TrackList2Csv(tl)

@@ -1,53 +1,53 @@
-hydroffice.bag.tools package
+hyo.bag.tools package
 ============================
 
 Submodules
 ----------
 
-hydroffice.bag.tools.bag_bbox module
+hyo.bag.tools.bag_bbox module
 ------------------------------------
 
-.. automodule:: hydroffice.bag.tools.bag_bbox
+.. automodule:: hyo.bag.tools.bag_bbox
     :members:
     :undoc-members:
     :show-inheritance:
 
-hydroffice.bag.tools.bag_elevation module
+hyo.bag.tools.bag_elevation module
 -----------------------------------------
 
-.. automodule:: hydroffice.bag.tools.bag_elevation
+.. automodule:: hyo.bag.tools.bag_elevation
     :members:
     :undoc-members:
     :show-inheritance:
 
-hydroffice.bag.tools.bag_metadata module
+hyo.bag.tools.bag_metadata module
 ----------------------------------------
 
-.. automodule:: hydroffice.bag.tools.bag_metadata
+.. automodule:: hyo.bag.tools.bag_metadata
     :members:
     :undoc-members:
     :show-inheritance:
 
-hydroffice.bag.tools.bag_tracklist module
+hyo.bag.tools.bag_tracklist module
 -----------------------------------------
 
-.. automodule:: hydroffice.bag.tools.bag_tracklist
+.. automodule:: hyo.bag.tools.bag_tracklist
     :members:
     :undoc-members:
     :show-inheritance:
 
-hydroffice.bag.tools.bag_uncertainty module
+hyo.bag.tools.bag_uncertainty module
 -------------------------------------------
 
-.. automodule:: hydroffice.bag.tools.bag_uncertainty
+.. automodule:: hyo.bag.tools.bag_uncertainty
     :members:
     :undoc-members:
     :show-inheritance:
 
-hydroffice.bag.tools.bag_validate module
+hyo.bag.tools.bag_validate module
 ----------------------------------------
 
-.. automodule:: hydroffice.bag.tools.bag_validate
+.. automodule:: hyo.bag.tools.bag_validate
     :members:
     :undoc-members:
     :show-inheritance:
@@ -56,7 +56,7 @@ hydroffice.bag.tools.bag_validate module
 Module contents
 ---------------
 
-.. automodule:: hydroffice.bag.tools
+.. automodule:: hyo.bag.tools
     :members:
     :undoc-members:
     :show-inheritance:

@@ -1,7 +1,6 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import os
 import logging
+from shutil import copyfile
 from matplotlib import pyplot as plt
 
 logger = logging.getLogger()
@@ -12,22 +11,25 @@ ch_formatter = logging.Formatter('%(levelname)-9s %(name)s.%(funcName)s:%(lineno
 ch.setFormatter(ch_formatter)
 logger.addHandler(ch)
 
-from hydroffice.bag import BAGFile
-from hydroffice.bag import BAGError
-from hydroffice.bag.helper import Helper
+from hyo.bag import BAGFile
+from hyo.bag import BAGError
+from hyo.bag.helper import Helper
 
-# file_bag_0 = os.path.join(Helper.samples_folder(), "bdb_00.bag")
-file_bag_0 = "C://Users//gmasetti//Desktop//h11077_depth_full.bag"
-if os.path.exists(file_bag_0):
-    print("- file_bag_0: %s" % file_bag_0)
+file_bag_0 = os.path.join(Helper.samples_folder(), "bdb_01.bag")
+if not os.path.exists(file_bag_0):
+    raise RuntimeError("the file does not exist: %s" % file_bag_0)
+print("- file_bag_0: %s" % file_bag_0)
 
-bag_0 = BAGFile(file_bag_0)
+file_bag_copy = os.path.join(os.path.dirname(__file__), "tmp_copy.bag")
+bag_copy = copyfile(file_bag_0, file_bag_copy)
+
+bag_0 = BAGFile(file_bag_copy)
 print(bag_0)
 
 print(type(bag_0.elevation(mask_nan=True)), bag_0.elevation(mask_nan=True).shape, bag_0.elevation(mask_nan=True).dtype)
-# ax =plt.contourf(bag_0.elevation(mask_nan=True))
-# plt.colorbar(ax)
-# plt.show()
+ax = plt.contourf(bag_0.elevation(mask_nan=True))
+plt.colorbar(ax)
+plt.show()
 
 wkt_prj_hor = """
     PROJCS["UTM Zone 19, Northern Hemisphere",
@@ -62,4 +64,5 @@ bag_0.modify_bbox(west=-70.68079657129087, east=-70.65526106943501, south=41.506
 bag_meta = bag_0.populate_metadata()
 print(bag_meta)
 
-
+bag_0.close()
+os.remove(file_bag_copy)

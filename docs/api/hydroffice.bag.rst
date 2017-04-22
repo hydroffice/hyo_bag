@@ -1,4 +1,4 @@
-hydroffice.bag package
+hyo.bag package
 ======================
 
 Subpackages
@@ -6,71 +6,71 @@ Subpackages
 
 .. toctree::
 
-    hydroffice.bag.tools
+    hyo.bag.tools
 
 Submodules
 ----------
 
-hydroffice.bag.bag module
+hyo.bag.bag module
 -------------------------
 
-.. automodule:: hydroffice.bag.bag
+.. automodule:: hyo.bag.bag
     :members:
     :undoc-members:
     :show-inheritance:
 
-hydroffice.bag.base module
+hyo.bag.base module
 --------------------------
 
-.. automodule:: hydroffice.bag.base
+.. automodule:: hyo.bag.base
     :members:
     :undoc-members:
     :show-inheritance:
 
-hydroffice.bag.bbox module
+hyo.bag.bbox module
 --------------------------
 
-.. automodule:: hydroffice.bag.bbox
+.. automodule:: hyo.bag.bbox
     :members:
     :undoc-members:
     :show-inheritance:
 
-hydroffice.bag.elevation module
+hyo.bag.elevation module
 -------------------------------
 
-.. automodule:: hydroffice.bag.elevation
+.. automodule:: hyo.bag.elevation
     :members:
     :undoc-members:
     :show-inheritance:
 
-hydroffice.bag.helper module
+hyo.bag.helper module
 ----------------------------
 
-.. automodule:: hydroffice.bag.helper
+.. automodule:: hyo.bag.helper
     :members:
     :undoc-members:
     :show-inheritance:
 
-hydroffice.bag.meta module
+hyo.bag.meta module
 --------------------------
 
-.. automodule:: hydroffice.bag.meta
+.. automodule:: hyo.bag.meta
     :members:
     :undoc-members:
     :show-inheritance:
 
-hydroffice.bag.tracklist module
+hyo.bag.tracklist module
 -------------------------------
 
-.. automodule:: hydroffice.bag.tracklist
+.. automodule:: hyo.bag.tracklist
     :members:
     :undoc-members:
     :show-inheritance:
 
-hydroffice.bag.uncertainty module
+hyo.bag.uncertainty module
 ---------------------------------
 
-.. automodule:: hydroffice.bag.uncertainty
+.. automodule:: hyo.bag.uncertainty
     :members:
     :undoc-members:
     :show-inheritance:
@@ -79,7 +79,7 @@ hydroffice.bag.uncertainty module
 Module contents
 ---------------
 
-.. automodule:: hydroffice.bag
+.. automodule:: hyo.bag
     :members:
     :undoc-members:
     :show-inheritance:

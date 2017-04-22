@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import os
 import logging
 
@@ -16,23 +14,23 @@ from .bag import BAGFile
 gdal.UseExceptions()
 
 
-class Density2Gdal(object):
+class Uncertainty2Gdal(object):
 
     formats = {
-        'ascii': [b"AAIGrid", "bag.leidos.density.asc"],
-        'geotiff': [b"GTiff", "bag.leidos.density.tif"],
-        'xyz': [b"XYZ", "bag.leidos.density.xyz"],
+        'ascii': ["AAIGrid", "bag.uncertainty.asc"],
+        'geotiff': ["GTiff", "bag.uncertainty.tif"],
+        'xyz': ["XYZ", "bag.uncertainty.xyz"],
     }
 
-    def __init__(self, bag_density, bag_meta, fmt="geotiff", out_file=None, epsg=None):
+    def __init__(self, bag_uncertainty, bag_meta, fmt="geotiff", out_file=None, epsg=None):
         """Export the elevation layer in one of the listed formats"""
-        assert isinstance(bag_density, np.ndarray)
+        assert isinstance(bag_uncertainty, np.ndarray)
         assert isinstance(bag_meta, Meta)
-        self.bag_den = bag_density
+        self.bag_unc = bag_uncertainty
         self.bag_meta = bag_meta
 
         # get the IN-MEMORY ogr driver
-        self.mem = gdal.GetDriverByName(b"MEM")
+        self.mem = gdal.GetDriverByName("MEM")
         if self.mem is None:
             raise BAGError("%s driver not available.\n" % self.formats[fmt][0])
         log.debug("format: %s" % fmt)
@@ -46,14 +44,14 @@ class Density2Gdal(object):
         if os.path.exists(self.out_file):
             os.remove(self.out_file)
 
-        log.debug("dtype: %s" % self.bag_den.dtype)
+        log.debug("dtype: %s" % self.bag_unc.dtype)
         self.rst = self.mem.Create(utf8_path=self.out_file, xsize=self.bag_meta.cols, ysize=self.bag_meta.rows,
                                    bands=1, eType=gdal.GDT_Float32)
         self.rst.SetGeoTransform((self.bag_meta.sw[0], self.bag_meta.res_x, 0,
                                   self.bag_meta.ne[1], 0, -self.bag_meta.res_y))
 
         self.bnd = self.rst.GetRasterBand(1)
-        self.bnd.WriteArray(self.bag_den[::-1])
+        self.bnd.WriteArray(self.bag_unc[::-1])
         self.bnd.SetNoDataValue(BAGFile.BAG_NAN)
         self.srs = osr.SpatialReference()
         if self.bag_meta.wkt_srs is not None:

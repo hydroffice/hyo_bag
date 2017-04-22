@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import os
 import logging
 
@@ -19,9 +17,9 @@ gdal.UseExceptions()
 class Elevation2Gdal(object):
 
     formats = {
-        'ascii': [b"AAIGrid", "bag.elevation.asc"],
-        'geotiff': [b"GTiff", "bag.elevation.tif"],
-        'xyz': [b"XYZ", "bag.elevation.xyz"],
+        'ascii': ["AAIGrid", "bag.elevation.asc"],
+        'geotiff': ["GTiff", "bag.elevation.tif"],
+        'xyz': ["XYZ", "bag.elevation.xyz"],
     }
 
     def __init__(self, bag_elevation, bag_meta, fmt="geotiff", out_file=None, epsg=None):
@@ -32,7 +30,7 @@ class Elevation2Gdal(object):
         self.bag_meta = bag_meta
 
         # get the IN-MEMORY ogr driver
-        self.mem = gdal.GetDriverByName(b"MEM")
+        self.mem = gdal.GetDriverByName("MEM")
         if self.mem is None:
             raise BAGError("%s driver not available.\n" % self.formats[fmt][0])
         log.debug("format: %s" % fmt)

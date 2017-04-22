@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function  # , unicode_literals
-
 import os
 import sys
 import logging
@@ -257,7 +255,7 @@ class BAGFile(File):
             name = os.path.join(self.default_metadata_file)
 
         with open(os.path.abspath(name), 'w') as fid:
-            fid.write(meta_xml)
+            fid.write(meta_xml.decode())
 
     def substitute_metadata(self, path):
         """ Substitute internal metadata
@@ -401,6 +399,7 @@ class BAGFile(File):
             'xsi': 'http://www.w3.org/2001/XMLSchema-instance',
         }
 
+        print(self[BAGFile._bag_metadata][:])
         xml_tree = etree.fromstring(self[BAGFile._bag_metadata][:].tostring())
 
         try:
@@ -415,11 +414,11 @@ class BAGFile(File):
             logger.warning("unable to read the WKT projection string: %s" % e)
             return
 
-        new_xml = etree.tostring(xml_tree, pretty_print=True)  # .encode('utf-8')
+        new_xml = etree.tostring(xml_tree, pretty_print=True)
         del self[BAGFile._bag_metadata]
         ds = self.create_dataset(BAGFile._bag_metadata, shape=(len(new_xml), ), dtype="S1")
         for i, x in enumerate(new_xml):
-            ds[i] = x
+            ds[i] = bytes([x])
 
     def modify_bbox(self, west, east, south, north):
         """ attempts to modify the bounding box values """
@@ -466,11 +465,11 @@ class BAGFile(File):
             logger.warning("unable to read the bbox's latitude values: %s" % e)
             return
 
-        new_xml = etree.tostring(xml_tree, pretty_print=True)  # .encode('utf-8')
+        new_xml = etree.tostring(xml_tree, pretty_print=True)
         del self[BAGFile._bag_metadata]
         ds = self.create_dataset(BAGFile._bag_metadata, shape=(len(new_xml),), dtype="S1")
         for i, x in enumerate(new_xml):
-            ds[i] = x
+            ds[i] = bytes([x])
 
     def _str_group_info(self, grp):
         if grp == self._bag_root:

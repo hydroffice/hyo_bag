@@ -6,7 +6,7 @@ Subpackages
 
 .. toctree::
 
-    hydroffice.bag
+    hyo.bag
 
 Module contents
 ---------------

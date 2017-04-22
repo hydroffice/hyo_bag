@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import os
 import logging
 
@@ -15,8 +13,8 @@ logger.addHandler(ch)
 # - test for being a BAG file
 # - open and read some metadata info from a BAG file
 
-from hydroffice.bag.base import is_bag, File
-from hydroffice.bag.helper import Helper
+from hyo.bag.base import is_bag, File
+from hyo.bag.helper import Helper
 
 file_bag_0 = os.path.join(Helper.samples_folder(), "bdb_00.bag")
 if os.path.exists(file_bag_0):

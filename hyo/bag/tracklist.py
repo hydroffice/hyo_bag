@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import os
 import logging
 
@@ -35,14 +33,17 @@ class TrackList2Csv(object):
         if self.header is None:
             self.header = str()
         if type(self.header) is tuple:
-            self.header = bytes(",".join(fld for fld in self.header))
+            self.header = ",".join(fld for fld in self.header)
+            self.header += "\n"
         log.debug("header: %s" % self.header)
 
         self.comment = comment
         if self.comment is None:
-            self.comment = "# Exported using BAG tools r%s\n" % bytes(__version__)
-        self.comment = self.comment.encode("utf-8")
+            self.comment = "# Exported using BAG tools r%s\n" % __version__
         log.debug("comment: %s" % self.comment)
 
-        np.savetxt(fname=self.csv_file, X=track_list, fmt=b'%.7g', delimiter=b',',
-                   header=self.header, comments=self.comment)
+        with open(self.csv_file, 'w') as f:
+            f.write(self.comment)
+            f.write(self.header)
+            for row in track_list:
+                f.write("%s, %s, %s, %s, %s, %s\n" % (row[0], row[1], row[2], row[3], row[4], row[5]))

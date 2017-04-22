@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import os
 import logging
 from matplotlib import pyplot as plt
@@ -12,16 +10,16 @@ ch_formatter = logging.Formatter('%(levelname)-9s %(name)s.%(funcName)s:%(lineno
 ch.setFormatter(ch_formatter)
 logger.addHandler(ch)
 
-from hydroffice.bag import BAGFile
-from hydroffice.bag import BAGError
-from hydroffice.bag.helper import Helper
+from hyo.bag import BAGFile
+from hyo.bag import BAGError
+from hyo.bag.helper import Helper
 
 # Example that use bag.BAGFile to:
 # - open a BAG file
 # - read the whole elevation and uncertainty layers
 # - read a selected range of rows for the elevation and uncertainty layers
 
-file_bag_0 = os.path.join(Helper.samples_folder(), "bdb_00.bag")
+file_bag_0 = os.path.join(Helper.samples_folder(), "bdb_02.bag")
 if os.path.exists(file_bag_0):
     logger.debug("- file_bag_0: %s" % file_bag_0)
 
@@ -57,7 +55,7 @@ ax = plt.contourf(full_uncertainty)
 plt.colorbar(ax)
 plt.show()
 # - read the first 10 rows of the uncertainty layers
-selection_slice = slice(10, 20)
+selection_slice = slice(0, 10)
 sliced_uncertainty = bag_0.uncertainty(mask_nan=True, row_range=selection_slice)
 logger.info("sliced uncertainty array:\n  type: %s\n  shape: %s\n  dtype: %s"
             % (type(sliced_uncertainty), sliced_uncertainty.shape, sliced_uncertainty.dtype))
@@ -94,6 +92,3 @@ bag_2.close()
 
 if os.path.exists(file_bag_2):
     os.remove(file_bag_2)
-
-
-

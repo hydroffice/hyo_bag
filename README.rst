@@ -1,8 +1,8 @@
 HydrOffice BAG
 ==============
 
-.. image:: https://img.shields.io/pypi/v/hydroffice.bag.svg
-    :target: https://pypi.python.org/pypi/hydroffice.bag
+.. image:: https://img.shields.io/pypi/v/hyo.bag.svg
+    :target: https://pypi.python.org/pypi/hyo.bag
     :alt: PyPi version
 
 .. image:: https://img.shields.io/badge/docs-stable-brightgreen.svg
@@ -40,11 +40,11 @@ Dependencies
 
 For the BAG library, you will need:
 
-* ``python`` *[>=2.7, >=3.4]*
+* ``python`` *[>=3.5]*
 * ``numpy``
 * ``h5py``
 * ``lxml``
-* ``gdal`` *[<2.0]*
+* ``gdal``
 * ``PyInstaller`` *[for freezing the tools]*
 
 For running some of the example scripts, you might also need:

@@ -37,7 +37,7 @@ def collect_pkg_data(package, include_py_files=False, subdir=None):
 
     return data_toc
 
-pkg_data_bag = collect_pkg_data('hydroffice.bag')
+pkg_data_bag = collect_pkg_data('hyo.bag')
 pkg_data_lxml = collect_pkg_data('lxml')
 
 icon_folder = os.path.abspath(os.path.join('hydroffice', 'bag', 'media'))

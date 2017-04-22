@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import os
 import logging
 
@@ -12,7 +10,7 @@ ch.setFormatter(ch_formatter)
 logger.addHandler(ch)
 
 
-from hydroffice.bag.helper import BAGError, Helper
+from hyo.bag.helper import BAGError, Helper
 
 try:
     raise BAGError("test")

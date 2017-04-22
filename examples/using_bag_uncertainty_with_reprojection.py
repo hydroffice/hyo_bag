@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import os
 import logging
 from matplotlib import pyplot as plt
@@ -12,11 +10,11 @@ ch_formatter = logging.Formatter('%(levelname)-9s %(name)s.%(funcName)s:%(lineno
 ch.setFormatter(ch_formatter)
 logger.addHandler(ch)
 
-from hydroffice.bag import BAGFile
-from hydroffice.bag import BAGError
-from hydroffice.bag.helper import Helper
+from hyo.bag import BAGFile
+from hyo.bag import BAGError
+from hyo.bag.helper import Helper
 
-bag_file = os.path.join(Helper.samples_folder(), "bdb_00.bag")
+bag_file = os.path.join(Helper.samples_folder(), "bdb_01.bag")
 if os.path.exists(bag_file):
     print("- file_bag_0: %s" % bag_file)
 
@@ -28,7 +26,7 @@ print(bag_meta)
 bag_uncertainty = bag.uncertainty(mask_nan=True)
 print(type(bag.elevation(mask_nan=True)), bag.elevation(mask_nan=True).shape, bag.elevation(mask_nan=True).dtype)
 
-from hydroffice.bag.uncertainty import Uncertainty2Gdal
+from hyo.bag.uncertainty import Uncertainty2Gdal
 Uncertainty2Gdal(bag_uncertainty=bag_uncertainty, bag_meta=bag_meta, fmt="ascii", epsg=4326)
 Uncertainty2Gdal(bag_uncertainty=bag_uncertainty, bag_meta=bag_meta, fmt="geotiff", epsg=4326)
 Uncertainty2Gdal(bag_uncertainty=bag_uncertainty, bag_meta=bag_meta, fmt="xyz", epsg=4326)

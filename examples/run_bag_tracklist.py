@@ -1,10 +1,8 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import subprocess
 import os
 
-from hydroffice.bag.helper import Helper
-from hydroffice.bag import tools
+from hyo.bag.helper import Helper
+from hyo.bag import tools
 
 
 tools_folder = os.path.abspath(os.path.dirname(tools.__file__))

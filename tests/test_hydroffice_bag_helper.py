@@ -1,10 +1,8 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import unittest
 import os
 
-from hydroffice.bag.helper import Helper
-from hydroffice.bag.helper import BAGError
+from hyo.bag.helper import Helper
+from hyo.bag.helper import BAGError
 
 
 class TestBAGError(unittest.TestCase):

@@ -1,6 +1,6 @@
 How to install
 ==============
 
-* the simplest way: ``pip install hydroffice.bag``
+* the simplest way: ``pip install hyo.bag``
 
 * for the latest features: ``hg clone ssh://hg@bitbucket.org/gmasetti/hyo_bag``
