@@ -12,7 +12,7 @@ For use with a VM image:
 
 Installation:
 
-* Download 64-bit Python 2.7 miniconda: http://conda.pydata.org/miniconda.html
+* Download 64-bit Python 3.6 miniconda: http://conda.pydata.org/miniconda.html
 * Install it from terminal: ``bash Miniconda-latest-Linux-x86_64.sh``
 * Install dependencies using conda (since with pip they may fail): ``conda install numpy matplotlib gdal lxml spyder``
 * Finally use pip for hyo.bag: ``pip install hyo.bag``

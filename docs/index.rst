@@ -14,12 +14,11 @@ Contents
    requirements
    license
    how_to_install
+   how_to_install_on_linux_mint
    how_to_use
    how_to_contribute
-   api
    how_to_release
    dev_commands
-   banner
 
 Indices and tables
 ==================
