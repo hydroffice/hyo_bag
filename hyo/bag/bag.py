@@ -297,7 +297,7 @@ class BAGFile(File):
             xml_tree = etree.fromstring(xml_string)
         except etree.Error as e:
             logger.warning("unabled to parse XML metadata: %s" % e)
-            self.meta_errors.append(e.message)
+            self.meta_errors.append(e)
             return False
 
         try:
@@ -306,14 +306,14 @@ class BAGFile(File):
             schema = etree.XMLSchema(schema_doc)
         except etree.Error as e:
             logger.warning("unabled to parse XML schema: %s" % e)
-            self.meta_errors.append(e.message)
+            self.meta_errors.append(e)
             return False
 
         try:
             schema.assertValid(xml_tree)
         except etree.DocumentInvalid as e:
             logger.warning("invalid metadata based on XML schema: %s" % e)
-            self.meta_errors.append(e.message)
+            self.meta_errors.append(e)
             for i in schema.error_log:
                 self.meta_errors.append(i)
             is_valid = False
@@ -326,7 +326,7 @@ class BAGFile(File):
             schematron_doc = etree.parse(schematron_path)
         except etree.DocumentInvalid as e:
             logger.warning("unabled to parse BAG schematron: %s" % e)
-            self.meta_errors.append(e.message)
+            self.meta_errors.append(e)
             return False
 
         try:
@@ -334,14 +334,14 @@ class BAGFile(File):
         except IOError as e:
             msg = "Unable to load lxml isoschematron files"
             logger.warning("%s: %s" % (msg, e))
-            self.meta_errors.append(e.message)
+            self.meta_errors.append(e)
             return False
 
         try:
             schematron = isoschematron.Schematron(schematron_doc, store_report=True)
         except etree.DocumentInvalid as e:
             logger.warning("unabled to load BAG schematron: %s" % e)
-            self.meta_errors.append(e.message)
+            self.meta_errors.append(e)
             return False
 
         if schematron.validate(xml_tree):
