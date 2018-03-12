@@ -215,6 +215,10 @@ class BAGFile(File):
         """ Return the tracking list field names """
         return self[BAGFile._bag_tracking_list].dtype.names
 
+    def tracking_list_types(self):
+        """ Return the tracking list field names """
+        return self[BAGFile._bag_tracking_list].dtype
+
     def metadata(self, as_string=True, as_pretty_xml=True):
         """ Return the metadata
 
