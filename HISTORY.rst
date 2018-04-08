@@ -4,6 +4,10 @@ History
 0.5
 ~~~
 
+2018-04-08
+
+- Switch to git
+
 2017-04-21
 
 - Switch to Python 3

@@ -22,7 +22,7 @@ HydrOffice BAG
 General Info
 ------------
 
-.. image:: https://bitbucket.org/ccomjhc/hyo_bag/raw/tip/hyo/bag/media/favicon.png
+.. image:: https://github.com/hydroffice/hyo_bag/raw/master/hyo/bag/media/favicon.png
     :alt: logo
 
 HydrOffice is a research development environment for ocean mapping. It provides a collection of hydro-packages, each of them dealing with a specific issue of the field.
@@ -51,6 +51,6 @@ For running some of the example scripts, you might also need:
 Other info
 ----------
 
-* Bitbucket: `https://bitbucket.org/ccomjhc/hyo_bag <https://bitbucket.org/ccomjhc/hyo_bag>`_
-* Project page: `http://www.hydroffice.org <http://www.hydroffice.org>`_
-* License: LGPLv3 license (See `LICENSE <https://bitbucket.org/ccomjhc/hyo_bag/raw/tip/LICENSE>`_)
+* Bitbucket: `https://github.com/hydroffice/hyo_bag <https://github.com/hydroffice/hyo_bag>`_
+* Project page: `http://www.hydroffice.org/bag/ <http://www.hydroffice.org/bag/>`_
+* License: LGPLv3 license (See `LICENSE <https://github.com/hydroffice/hyo_bag/raw/master/LICENSE>`_)
