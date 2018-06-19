@@ -3,6 +3,12 @@
 # PyCharm settings
 .idea/
 
+# Byte-compiled / optimized 
+__pycache__/
+*.pyc
+*.pyo
+*.cache/
+
 # Microsoft installers
 *.msi
 
