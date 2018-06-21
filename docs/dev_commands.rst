@@ -83,9 +83,8 @@ To update the API documentation:
 PyPi
 ----
 
-Some instructions can be found `here <https://wiki.python.org/moin/TestPyPI>`_:
+Some instructions can be found `here <https://packaging.python.org/tutorials/packaging-projects/>`_:
 
-* ``python setup.py register -r test``
-* ``python setup.py register -r pypi``
-* ``python setup.py build bdist_wheel upload -r test``
-* ``python setup.py build bdist_wheel upload -r pypi``
+* ``python setup.py sdist bdist_wheel``
+* ``python -m pip install --user --upgrade twine``
+* ``python -m twine upload dist/*``
