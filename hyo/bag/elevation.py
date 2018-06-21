@@ -7,14 +7,13 @@ import numpy as np
 
 from osgeo import gdal, osr
 from .meta import Meta
-from .helper import BAGError, Helper
-from . import __version__
+from .helper import BAGError
 from .bag import BAGFile
 
 gdal.UseExceptions()
 
 
-class Elevation2Gdal(object):
+class Elevation2Gdal:
 
     formats = {
         'ascii': ["AAIGrid", "bag.elevation.asc"],
@@ -47,8 +46,9 @@ class Elevation2Gdal(object):
         log.debug("dtype: %s" % self.bag_elv.dtype)
         self.rst = self.mem.Create(utf8_path=self.out_file, xsize=self.bag_meta.cols, ysize=self.bag_meta.rows,
                                    bands=1, eType=gdal.GDT_Float32)
-        self.rst.SetGeoTransform((self.bag_meta.sw[0], self.bag_meta.res_x, 0,
-                                  self.bag_meta.ne[1], 0, -self.bag_meta.res_y))
+        # GDAL geo-transform refers to the top left corner of the top left pixel of the raster.
+        self.rst.SetGeoTransform((self.bag_meta.sw[0] - self.bag_meta.res_x / 2.0, self.bag_meta.res_x, 0,
+                                  self.bag_meta.ne[1] + self.bag_meta.res_y / 2.0, 0, -self.bag_meta.res_y))
 
         self.bnd = self.rst.GetRasterBand(1)
         self.bnd.WriteArray(self.bag_elv[::-1])
