@@ -4,6 +4,10 @@ History
 0.5
 ~~~
 
+2018-06-21
+
+- Bug fix to follow GDAL-convention for geotransform
+
 2018-04-08
 
 - Switch to git
