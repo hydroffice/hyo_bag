@@ -28,6 +28,10 @@
     <phase id="phase.gmd_spatialRepresentationInfo">
         <active pattern="gmd_spatialRepresentationInfo_checks"/>
     </phase>
+    <phase id="phase.gmd_EX_GeographicBoundingBox">
+        <active pattern="gmd_EX_GeographicBoundingBox_west_east_checks"/>
+        <active pattern="gmd_EX_GeographicBoundingBox_south_north_checks"/>
+    </phase>
     <!-- Generic checks -->
     <pattern id="generic_checks">
         <title>Generic checks</title>
@@ -140,6 +144,21 @@
             </assert>
             <assert test="child::gmd:numberOfDimensions = count(child::gmd:axisDimensionProperties)">
                 The number of gmd:axisDimensionProperties must correspond to gmd:MD_Georectified/gmd:numberOfDimensions [$5.3.1.5], but <value-of select="normalize-space(child::gmd:MD_Georectified/gmd:numberOfDimensions)"/>!=<value-of select="normalize-space(count(child::gmd:MD_Georectified/gmd:axisDimensionProperties))"/>.
+            </assert>
+        </rule>
+    </pattern>
+    <!-- gmd:EX_GeographicBoundingBox-level checks -->
+    <pattern id="gmd_EX_GeographicBoundingBox_west_east_checks">
+        <rule context="/gmi:MI_Metadata/gmd:identificationInfo/bag:BAG_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox">
+            <assert test="child::gmd:eastBoundLongitude >= child::gmd:westBoundLongitude">
+                The eastern longitude (<value-of select="normalize-space(child::gmd:eastBoundLongitude)"/>) must be greater than the western longitude (<value-of select="normalize-space(child::gmd:westBoundLongitude)"/>).
+            </assert>
+        </rule>
+    </pattern>
+    <pattern id="gmd_EX_GeographicBoundingBox_south_north_checks">
+        <rule context="/gmi:MI_Metadata/gmd:identificationInfo/bag:BAG_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox">
+            <assert test="child::gmd:northBoundLatitude >= child::gmd:southBoundLatitude">
+                The northern latitude (<value-of select="normalize-space(child::gmd:northBoundLatitude)"/>) must be greater than the southern latitude (<value-of select="normalize-space(child::gmd:southBoundLatitude)"/>).
             </assert>
         </rule>
     </pattern>
